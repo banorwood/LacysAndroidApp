@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">Lacys</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="action_settings">Settings</string>
+    <string name="home_essentials_category">Home Essentials</string>
+    <string name="womens_shirts_category">Shirts</string>
+    <string name="womens_pants_category">Pants</string>
+    <string name="womens_skirts_category">Skirts</string>
+    <string name="mens_shirts_category">Shirts</string>
+    <string name="mens_pants_category">Pants</string>
+    <string name="women_category">Women</string>
+    <string name="men_category">Men</string>
+
+</resources>
