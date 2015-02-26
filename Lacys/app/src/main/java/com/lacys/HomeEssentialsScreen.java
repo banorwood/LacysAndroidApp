@@ -33,9 +33,7 @@ public class HomeEssentialsScreen extends Activity {
         theListView.setAdapter(theAdapter);
         */
 
-        Intent sendCategoryResource = new Intent(HomeEssentialsScreen.this, MultipleProductDisplayScreen.class);
-        sendCategoryResource.putExtra("categoryClicked", getString(R.string.home_essentials_category));
-        startActivity(sendCategoryResource);
+
 
 
 

@@ -47,12 +47,12 @@ http://stackoverflow.com/questions/1521640/standard-android-button-with-a-differ
     <item>
         <shape>
             <gradient
-                android:endColor="@color/light_purple"
-                android:startColor="@color/dark_purple"
+                android:endColor="@color/dark_purple"
+                android:startColor="@color/light_purple"
                 android:angle="270" />
             <stroke
                 android:width="3dp"
-                android:color="@color/light_purple" />
+                android:color="@color/dark_purple" />
             <corners
                 android:radius="3dp" />
             <padding

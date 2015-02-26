@@ -1,0 +1,157 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_height="fill_parent"
+    android:layout_width="fill_parent"
+    >
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:orientation="vertical" android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
+        >
+
+        <ImageView
+            android:id="@+id/image_view"
+            android:layout_width="250dp"
+            android:layout_height="250dp"
+            android:layout_gravity="center|top"
+            android:paddingTop="16dp"
+            android:paddingBottom="16dp"
+         />
+
+        <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
+            android:layout_height="80dp" android:orientation="horizontal"
+            android:padding="5dp">
+
+            <TextView
+                android:layout_width="150dp"
+                android:layout_height="65dp"
+                android:layout_gravity="left"
+                android:text="Wrap Front Jersey\n$20.00"
+                />
+            <Button
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/custom_button"
+                android:text="Add to Cart" />
+
+
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical" android:padding="5dp">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:text="Color: "
+                android:textStyle="bold|italic"
+                android:textSize="25dp"
+                android:paddingTop="10dp"
+                />
+
+            <Spinner
+                android:layout_width="120dp"
+                android:layout_height="40dp"></Spinner>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="45dp"
+                android:text="Size: "
+                android:textStyle="bold|italic"
+                android:textSize="25dp"
+                android:paddingTop="15dp"
+                />
+
+            <Spinner
+                android:layout_width="120dp"
+                android:layout_height="40dp"
+
+                ></Spinner>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Product Details: "
+                android:textStyle="bold|italic"
+                android:textSize="25dp"
+                android:paddingTop="30dp"
+                />
+
+
+<!--
+I don't know how to hard code line breaks in with XML but when we load product details
+in  from the database this will be useful
+http://stackoverflow.com/questions/5382490/how-to-add-a-line-break-in-an-android-textview
+-->
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="50% cotton, 50% spandex\n"
+                android:textSize="15dp"
+                android:paddingTop="5dp"
+                />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Reviews: "
+                android:textStyle="bold|italic"
+                android:textSize="25dp"
+                android:paddingTop="15dp"
+                android:paddingBottom="5dp"
+                />
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                >
+            <!--isIndicator makes rating bar uneditable-->
+                <RatingBar
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/ratingBar"
+                    android:rating="4.7"
+                    style="?android:attr/ratingBarStyleSmall"
+                    android:isIndicator="true"
+                    android:paddingTop="10dp"
+                    />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="20dp"
+                    android:text="4.7"
+                    android:textStyle="bold"
+                    android:paddingLeft="10dp"
+                    />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Average rating"
+                    android:paddingTop="10dp"
+                    android:paddingLeft="15dp"
+                    android:paddingBottom="15dp"/>
+            </LinearLayout>
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:paddingLeft="15dp"
+            android:paddingRight="15dp"
+            android:background="@drawable/custom_button"
+            android:text="Read all 5 reviews"
+            />
+
+        </LinearLayout>
+
+    </LinearLayout>
+</ScrollView>

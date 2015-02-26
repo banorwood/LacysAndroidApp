@@ -46,7 +46,12 @@ public class MainActivity extends ActionBarActivity {
 
                    if (mainCategoryPicked.equals(getString(R.string.home_essentials_category)))
                    {
-                       startActivity(new Intent(MainActivity.this , HomeEssentialsScreen.class));
+                       //bug fix. Moved this code from HomeEssentialsScreen to here so 2 HomeEssentialScreen activities
+                       //are not started and user doesn't have to click back button twice
+                       Intent sendCategoryResource = new Intent(MainActivity.this, MultipleProductDisplayScreen.class);
+                       sendCategoryResource.putExtra("categoryClicked", getString(R.string.home_essentials_category));
+                       startActivity(sendCategoryResource);
+
                    }
                    else if (mainCategoryPicked.equals(getString(R.string.women_category)))
                    {

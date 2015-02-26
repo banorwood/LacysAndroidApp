@@ -1,0 +1,29 @@
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/GridItem"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:minHeight="20dp"
+    android:orientation="vertical"
+    android:gravity="center_horizontal"
+    >
+
+        <!--setting layout width and height in this ImageView as
+     hardcoded values rather than wrap_content fixed the problem
+     of the textview having too much space around it-->
+    <ImageView android:id="@+id/grid_item_image"
+        android:layout_width="110dp"
+        android:layout_height="110dp">
+    </ImageView>
+
+    <TextView android:id="@+id/grid_item_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="TextView"
+        android:gravity="center_horizontal|top"
+        android:paddingBottom="20dp"
+
+        android:textColor="#000000">
+    </TextView>
+
+</LinearLayout>

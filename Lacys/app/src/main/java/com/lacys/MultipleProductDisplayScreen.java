@@ -1,8 +1,12 @@
 package com.lacys;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.AdapterView;
+import android.widget.GridView;
 import android.widget.Toast;
 
 /**
@@ -13,6 +17,31 @@ public class MultipleProductDisplayScreen extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setContentView(R.layout.multiple_product_display);
+
+        GridView gv = (GridView) findViewById(R.id.grid_view);
+
+
+        gv.setAdapter(new ImageAdapter(getApplicationContext()));
+
+        getApplicationContext();
+
+
+        gv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parentView, View iv, int position, long id) {
+                //Toast.makeText(getApplicationContext(), ""+position, Toast.LENGTH_SHORT).show();
+
+                Intent i = new Intent(getApplicationContext(), SingleProductViewScreen.class);
+                i.putExtra("id", position);
+                startActivity(i);
+
+
+            }
+        });
+
+
+
 
         Intent activityThatCalled = getIntent();
 
