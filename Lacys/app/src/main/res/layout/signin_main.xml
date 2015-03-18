@@ -26,7 +26,7 @@
         android:layout_alignParentLeft="true"
         android:layout_below="@+id/textView1"
         android:layout_marginTop="50dp"
-        android:text="@string/username"
+        android:text="Email: "
         android:textAppearance="?android:attr/textAppearanceMedium" />
 
     <EditText
@@ -109,12 +109,11 @@
         android:layout_below="@+id/textView"
         android:layout_alignLeft="@+id/editText2"
         android:layout_alignStart="@+id/editText2" />
-
     <TextView
         android:id="@+id/textView6"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/username"
+        android:text="Email: "
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:layout_alignBottom="@+id/editText"
         android:layout_toLeftOf="@+id/editText1"

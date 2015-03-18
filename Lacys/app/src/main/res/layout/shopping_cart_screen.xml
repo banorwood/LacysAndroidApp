@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <!--slightly shorter than screen height so that Total can be
+    seen at all times-->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="390dp"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <!--list of items in shopping cart-->
+            <ListView
+                android:layout_width="wrap_content"
+                android:layout_height="210dp"
+                android:id="@+id/shopping_cart_item_list"
+                android:scrollbarSize="5dp"
+                android:paddingBottom="5dp"
+                android:fadeScrollbars="false"
+
+                ></ListView>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <ListView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/shipping_speed_list"
+                android:padding="16dp"></ListView>
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+
+   <LinearLayout
+       android:layout_width="wrap_content"
+       android:layout_height="wrap_content"
+       android:orientation="horizontal"
+       android:layout_gravity="center">
+
+       <TextView
+           android:layout_width="wrap_content"
+           android:layout_height="wrap_content"
+           android:text="Total (Plus est. tax):"
+           android:textSize="10sp"
+           />
+
+       <TextView
+           android:layout_width="wrap_content"
+           android:layout_height="wrap_content"
+           android:text="$40.86"
+           android:textSize="15sp"
+           android:textStyle="bold"
+           android:paddingRight="20dp"
+           android:paddingLeft="10dp"
+           />
+
+       <Button
+           android:layout_width="wrap_content"
+           android:layout_height="wrap_content"
+           android:text="Check Out"
+           />
+
+       </LinearLayout>
+
+
+</LinearLayout>

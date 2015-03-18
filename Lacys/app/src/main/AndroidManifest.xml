@@ -46,6 +46,10 @@
             android:label="View Details"
             android:theme="@style/AppTheme"/>
 
+        <activity android:name=".ShoppingCartScreen"
+            android:label="Shopping Cart"
+            android:theme="@style/AppTheme"/>
+
     </application>
 
 </manifest>

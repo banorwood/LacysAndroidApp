@@ -1,0 +1,104 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="horizontal"
+    android:padding="16dp">
+
+
+        <!--start vertical layout for image and remove button-->
+        <LinearLayout
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+
+            >
+            <!-- Image for each ListItem row -->
+            <ImageView
+                android:id="@+id/shopping_cart_item"
+                android:layout_width="70dp"
+                android:layout_height="70dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="25dp"
+                android:src="@drawable/test_image_3"
+                android:paddingBottom="10dp"
+                />
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Remove"
+                />
+
+        </LinearLayout> <!--end vertical layout for image and remove button-->
+
+        <!--start vertical layout containing description and horizontal layout that has
+        a quantity TextView and EditText-->
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            >
+            <!-- Used to define a custom ListView row -->
+            <TextView
+                android:id="@+id/shopping_cart_item_info"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="15sp"
+                />
+            <!--start horizontal layout for price(s), one of which
+    may be stricken through-->
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                >
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Price: "
+                    android:textSize="15sp"
+                    />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/old_price_shopping_cart"
+                    android:background="@drawable/bg_strikethrough"
+                    android:text="$20.00"
+                    />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/new_price_shopping_cart"
+                    android:text=" $13.00"
+                    />
+
+            </LinearLayout> <!--end prices horizontal layout-->
+
+
+                <!--start horizontal layout with label and field for
+                quantity-->
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    >
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Quantity: "
+                        android:textSize="15sp"
+                        />
+
+                    <EditText
+                        android:layout_width="30dp"
+                        android:layout_height="wrap_content" />
+
+                </LinearLayout> <!--end quantity horizontal layout-->
+
+
+
+         <!--end description and horizontal layout containing layout-->
+        </LinearLayout>
+
+</LinearLayout>

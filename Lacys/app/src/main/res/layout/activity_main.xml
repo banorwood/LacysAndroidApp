@@ -7,6 +7,45 @@
     android:orientation="vertical"
     tools:context=".MainActivity">
 
+    <HorizontalScrollView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/ad_display"
+        >
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            >
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/main_ad_1"
+                android:padding="20dp"
+                android:onClick="onMensClothingAdClick"
+                />
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/main_ad_2"
+                android:padding="20dp"
+                android:onClick="onHomeEssentialsAdClick"
+                />
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/main_ad_3"
+                android:padding="20dp"
+                android:onClick="onWomensClothingAdClick"
+                />
+
+        </LinearLayout>
+    </HorizontalScrollView>
+
     <!--will later have code to change sign in to sign out if user is logged in already-->
     <Button
         android:layout_width="100dp"

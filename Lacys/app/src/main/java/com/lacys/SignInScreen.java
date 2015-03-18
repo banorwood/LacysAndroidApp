@@ -3,6 +3,7 @@ package com.lacys;
 import android.app.Activity;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.support.v7.app.ActionBarActivity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -11,7 +12,7 @@ import android.widget.Toast;
 import android.database.Cursor;
 import android.util.Log;
 
-public class SignInScreen extends Activity {
+public class SignInScreen extends ActionBarActivity {
 
     private EditText  username=null;
     private EditText  password=null;

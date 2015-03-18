@@ -86,8 +86,5 @@ public class MultipleProductDisplayScreen extends Activity {
             Toast.makeText(this, "Show home essentials from database", Toast.LENGTH_SHORT).show();
         }
 
-
-
-
     }
 }

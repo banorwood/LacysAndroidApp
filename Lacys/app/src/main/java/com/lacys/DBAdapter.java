@@ -186,6 +186,7 @@ public class DBAdapter{
 
     public static void addProducts()
     {
+        //name, description, price, discount, rating, isClothing, category
         String products[][] = {
                 {"Men Pants 1","....","10.0","0.0","4.0","true","Men Pants"},
                 {"Men Pants 2","....","20.0","0.0","5.0","true","Men Pants"},
