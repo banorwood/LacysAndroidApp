@@ -20,5 +20,6 @@
     <string name="attempts">Attempts Left:</string>
     <string name="CreateAccount">Create Account</string>
     <string name="NewCustomer">New Customer</string>
+    <string name="confirmPassword">Confirm Password:</string>
 
 </resources>
