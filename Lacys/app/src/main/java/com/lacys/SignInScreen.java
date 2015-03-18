@@ -16,7 +16,6 @@ public class SignInScreen extends ActionBarActivity {
     private EditText  password=null;
     private TextView attempts;
     private Button login;
-    private Button create;
     private DBAdapter db;
     int counter = 3;
     @Override
@@ -33,7 +32,6 @@ public class SignInScreen extends ActionBarActivity {
         attempts = (TextView)findViewById(R.id.textView5);
         attempts.setText(Integer.toString(counter));
         login = (Button)findViewById(R.id.button1);
-        create = (Button)findViewById(R.id.button);
     }
 
     @Override
@@ -41,12 +39,6 @@ public class SignInScreen extends ActionBarActivity {
         super.onDestroy();
         //Close database
         db.close();
-    }
-
-    public void create(View view){
-        Cursor results = db.login()
-        String user = username.setText().toString();
-
     }
 
     public void login(View view){
