@@ -1,14 +1,16 @@
 package com.lacys;
 
-import android.database.Cursor;
+import android.app.Activity;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
+import android.database.Cursor;
+import android.util.Log;
 
 public class SignInScreen extends ActionBarActivity {
 
@@ -51,8 +53,8 @@ public class SignInScreen extends ActionBarActivity {
 			String lname = results.getString(2);
 			String email = results.getString(3);
 			if (db.getDEBUG())
-				Log.i(db.getLogTag(),  "LOGGING IN! AccID: " + accID + " FirstName: " + fname + " LastName: " + lname + " Email: " + email);
-			Toast.makeText(getApplicationContext(), "LOGGING IN! AccID: " + accID + " FirstName: " + fname + " LastName: " + lname + " Email: " + email, Toast.LENGTH_SHORT).show();
+				Log.i(db.getLogTag(),  "LOGGIN IN! AccID: " + accID + " FirstName: " + fname + " LastName: " + lname + " Email: " + email);
+			Toast.makeText(getApplicationContext(), "LOGGIN IN! AccID: " + accID + " FirstName: " + fname + " LastName: " + lname + " Email: " + email, Toast.LENGTH_SHORT).show();
 		}
         else{
             //Toast.makeText(getApplicationContext(), "Wrong Credentials! ", Toast.LENGTH_SHORT).show();
