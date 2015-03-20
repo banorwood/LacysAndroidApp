@@ -1,16 +1,15 @@
 package com.lacys;
 
-import android.app.Activity;
-import android.graphics.Color;
+import android.content.Intent;
+import android.database.Cursor;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
-import android.database.Cursor;
-import android.util.Log;
 
 public class SignInScreen extends ActionBarActivity {
 
@@ -29,8 +28,8 @@ public class SignInScreen extends ActionBarActivity {
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.signin_main);
-        username = (EditText)findViewById(R.id.editText1);
-        password = (EditText)findViewById(R.id.editText2);
+        username = (EditText)findViewById(R.id.editTextEmail);
+        password = (EditText)findViewById(R.id.editTextPwd);
         attempts = (TextView)findViewById(R.id.textView5);
         attempts.setText(Integer.toString(counter));
         login = (Button)findViewById(R.id.button1);
@@ -49,12 +48,14 @@ public class SignInScreen extends ActionBarActivity {
         Cursor results = db.login(user,pass);
 		if((results != null) && (results.getCount() > 0)){
 			int accID = results.getInt(0);
-			String fname = results.getString(1);
-			String lname = results.getString(2);
+			String fName = results.getString(1);
+			String lName = results.getString(2);
 			String email = results.getString(3);
 			if (db.getDEBUG())
-				Log.i(db.getLogTag(),  "LOGGIN IN! AccID: " + accID + " FirstName: " + fname + " LastName: " + lname + " Email: " + email);
-			Toast.makeText(getApplicationContext(), "LOGGIN IN! AccID: " + accID + " FirstName: " + fname + " LastName: " + lname + " Email: " + email, Toast.LENGTH_SHORT).show();
+				Log.i(db.getLogTag(),  "LOGGING IN! AccID: " + accID + " FirstName: " + fName + " LastName: " + lName + " Email: " + email);
+			Toast.makeText(getApplicationContext(), "LOGGING IN! AccID: " + accID + " FirstName: " + fName + " LastName: " + lName + " Email: " + email, Toast.LENGTH_SHORT).show();
+
+            startActivity(new Intent(this, MainActivity.class));
 		}
         else{
             //Toast.makeText(getApplicationContext(), "Wrong Credentials! ", Toast.LENGTH_SHORT).show();
@@ -70,5 +71,8 @@ public class SignInScreen extends ActionBarActivity {
         }
     }
 
+    public void onCreateClick(View view) {
+        startActivity(new Intent(this, CreateAccount.class));
+    }
 
 }

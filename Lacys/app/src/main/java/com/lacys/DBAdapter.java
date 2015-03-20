@@ -3,13 +3,10 @@ package com.lacys;
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
-import android.database.DatabaseUtils;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
-
-import java.util.Random;
 
 public class DBAdapter{
     private static final boolean DEBUG = true;
@@ -242,28 +239,40 @@ public class DBAdapter{
         return null;
     }
 
-    public static void createAccount(String email, String password)
+    public static Cursor createAccount(String email, String password, String first, String last)
     {
         if (DEBUG)
             Log.i(LOG_TAG, "Creating Account");
         SQLiteDatabase db = open();
         ContentValues cVal = new ContentValues();
 
-        //generate random first/last name
-        String fnames[] = {"Andrea","Mike","Joey","Luke","Lucy","Alex"};
-        String lnames[] = {"Washington","Johnson","Woodrin","Robinson","Walker","Smith"};
-        Random random = new Random();
-        int rndIndex = random.nextInt(6);
-        String rndfName = fnames[rndIndex];
-        String rndlName = lnames[rndIndex];
-
         if (DEBUG)
-            Log.i(LOG_TAG, "Adding..: EMAIL: " +email + " PASSWORD: "+password+ " FIRSTNAME: "+rndfName+ " LASTNAME: "+rndlName);
+            Log.i(LOG_TAG, "Adding..: EMAIL: " +email + " PASSWORD: "+password+ " FIRSTNAME: "+first+ " LASTNAME: "+last);
         cVal.put(LacyConstants.TABLE_ACCOUNT_EMAIL,email);
         cVal.put(LacyConstants.TABLE_ACCOUNT_PASSWORD,password);
-        cVal.put(LacyConstants.TABLE_ACCOUNT_FIRSTNAME,rndfName);
-        cVal.put(LacyConstants.TABLE_ACCOUNT_LASTNAME,rndlName);
+        cVal.put(LacyConstants.TABLE_ACCOUNT_FIRSTNAME,first);
+        cVal.put(LacyConstants.TABLE_ACCOUNT_LASTNAME,last);
         db.insert(LacyConstants.TABLE_ACCOUNT, null, cVal);
+        return null;
+    }
 
+    public static Cursor createAccount(String email, String password)
+    {
+        String first = "";
+        String last = "";
+
+        if (DEBUG)
+            Log.i(LOG_TAG, "Creating Account");
+        SQLiteDatabase db = open();
+        ContentValues cVal = new ContentValues();
+
+        if (DEBUG)
+            Log.i(LOG_TAG, "Adding..: EMAIL: " +email + " PASSWORD: "+password+ " FIRSTNAME: "+first+ " LASTNAME: "+last);
+        cVal.put(LacyConstants.TABLE_ACCOUNT_EMAIL,email);
+        cVal.put(LacyConstants.TABLE_ACCOUNT_PASSWORD,password);
+        cVal.put(LacyConstants.TABLE_ACCOUNT_FIRSTNAME,first);
+        cVal.put(LacyConstants.TABLE_ACCOUNT_LASTNAME,last);
+        db.insert(LacyConstants.TABLE_ACCOUNT, null, cVal);
+        return null;
     }
 }

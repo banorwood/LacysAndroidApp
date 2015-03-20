@@ -31,7 +31,7 @@
 
     <EditText
         android:inputType="text"
-        android:id="@+id/editText1"
+        android:id="@+id/editTextEmail"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignBottom="@+id/textView2"
@@ -53,11 +53,11 @@
         android:textAppearance="?android:attr/textAppearanceMedium" />
 
     <EditText
-        android:id="@+id/editText2"
+        android:id="@+id/editTextPwd"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignBottom="@+id/textView3"
-        android:layout_alignLeft="@+id/editText1"
+        android:layout_alignLeft="@+id/editTextEmail"
         android:ems="10"
         android:inputType="textPassword" />
 
@@ -65,7 +65,7 @@
         android:id="@+id/button1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/editText2"
+        android:layout_below="@+id/editTextPwd"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="94dp"
         android:onClick="login"
@@ -90,42 +90,13 @@
         android:layout_alignTop="@+id/textView4"
         android:text="" />
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="@string/NewCustomer"
-        android:id="@+id/textView"
-        android:layout_below="@+id/button1"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="50dp" />
-
-    <EditText
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:inputType="textEmailAddress"
-        android:ems="10"
-        android:id="@+id/editText"
-        android:layout_below="@+id/textView"
-        android:layout_alignLeft="@+id/editText2"
-        android:layout_alignStart="@+id/editText2" />
-    <TextView
-        android:id="@+id/textView6"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Email: "
-        android:textAppearance="?android:attr/textAppearanceMedium"
-        android:layout_alignBottom="@+id/editText"
-        android:layout_toLeftOf="@+id/editText1"
-        android:layout_toStartOf="@+id/editText1" />
-
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/CreateAccount"
         android:id="@+id/button"
-        android:layout_alignParentBottom="true"
-        android:layout_alignRight="@+id/editText"
-        android:layout_alignEnd="@+id/editText" />
+        android:layout_below="@+id/button1"
+        android:layout_centerHorizontal="true"
+        android:onClick="onCreateClick"/>
 
 </RelativeLayout>
