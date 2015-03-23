@@ -4,21 +4,20 @@ import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.TextView;
 import android.widget.Toast;
 
 public class SignInScreen extends ActionBarActivity {
 
     private EditText  username=null;
     private EditText  password=null;
-    private TextView attempts;
     private Button login;
     private DBAdapter db;
-    int counter = 3;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         //Create Database Adapter
@@ -30,8 +29,6 @@ public class SignInScreen extends ActionBarActivity {
         setContentView(R.layout.signin_main);
         username = (EditText)findViewById(R.id.editTextEmail);
         password = (EditText)findViewById(R.id.editTextPwd);
-        attempts = (TextView)findViewById(R.id.textView5);
-        attempts.setText(Integer.toString(counter));
         login = (Button)findViewById(R.id.button1);
     }
 
@@ -43,8 +40,28 @@ public class SignInScreen extends ActionBarActivity {
     }
 
     public void login(View view){
+        int i = 0;
         String user = username.getText().toString();
+        if(user.length()==0) {
+            username.setError("Email is required!");
+            i = 1;
+        }
+        if (!isValidEmail(user)){
+            username.setError("Please enter a proper email address!");
+            i = 1;
+        }
         String pass =  password.getText().toString();
+        if(pass.length()==0) {
+            password.setError("Password is required!");
+            i = 1;
+        }
+        if(pass.length()<=7) {
+            password.setError("Password must be at least 6 characters!");
+            i = 1;
+        }
+        if (i==1)
+            return;
+
         Cursor results = db.login(user,pass);
 		if((results != null) && (results.getCount() > 0)){
 			int accID = results.getInt(0);
@@ -71,8 +88,13 @@ public class SignInScreen extends ActionBarActivity {
         }
     }
 
+    public final static boolean isValidEmail(CharSequence target) {
+        return !TextUtils.isEmpty(target) && android.util.Patterns.EMAIL_ADDRESS.matcher(target).matches();
+    }
+
     public void onCreateClick(View view) {
         startActivity(new Intent(this, CreateAccount.class));
     }
 
 }
+
