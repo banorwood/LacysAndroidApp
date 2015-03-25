@@ -53,6 +53,10 @@
         <activity android:name=".CreateAccount"
             android:label="@string/CreateAccount"
             android:theme="@style/AppTheme"/>
+
+        <activity android:name=".ShippingAddressScreen"
+            android:label="Shipping Address"
+            android:theme="@style/AppTheme"/>
     </application>
 
 </manifest>
