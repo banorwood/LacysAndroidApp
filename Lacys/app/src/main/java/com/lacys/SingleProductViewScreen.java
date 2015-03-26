@@ -3,6 +3,7 @@ package com.lacys;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
@@ -16,17 +17,29 @@ public class SingleProductViewScreen extends Activity
     private int position;
     private Spinner colorSpinner;
     private Spinner sizeSpinner;
-
+	private DBAdapter db;
+	
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+		db = new DBAdapter(this);
+        db.init();
         setContentView(R.layout.single_product_view);
+
+
 
         Intent i = getIntent();
         position = (Integer) i.getExtras().get("id");
 
         ImageView iv = (ImageView) findViewById(R.id.image_view);
         iv.setImageResource(ImageAdapter.images[position]);
+
+
+        if (db.getDEBUG()) {
+            Log.i(db.getLogTag(), "Intent: " + i);
+            Log.i(db.getLogTag(), "position: " + position);
+            Log.i(db.getLogTag(), iv.toString());
+        }
 
         addItemsToColorSpinner();
         addItemsToSizeSpinner();
@@ -72,5 +85,12 @@ public class SingleProductViewScreen extends Activity
         // Apply the adapter to the spinner
         sizeSpinner.setAdapter(sizeSpinnerAdapter);
 
+    }
+	
+	@Override
+    protected void onDestroy() {
+        super.onDestroy();
+        //Close database
+        db.close();
     }
 }

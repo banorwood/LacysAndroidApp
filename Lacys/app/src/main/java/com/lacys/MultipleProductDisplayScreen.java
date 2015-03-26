@@ -8,21 +8,26 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.GridView;
 import android.widget.Toast;
+import android.util.Log;
 
 /**
  * Created by Christina on 2/15/2015.
  */
 public class MultipleProductDisplayScreen extends Activity {
 
+    private DBAdapter db;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.multiple_product_display);
 
+
+        db = new DBAdapter(this);
+        db.init();
+
         GridView gv = (GridView) findViewById(R.id.grid_view);
-
-
-        gv.setAdapter(new ImageAdapter(getApplicationContext()));
+        ImageAdapter ia = new ImageAdapter(getApplicationContext(),this,db);
+        gv.setAdapter(ia);
 
         getApplicationContext();
 
@@ -39,6 +44,7 @@ public class MultipleProductDisplayScreen extends Activity {
 
             }
         });
+
 
 
 
@@ -74,7 +80,7 @@ public class MultipleProductDisplayScreen extends Activity {
             Toast.makeText(this, "Show men's shirts from database", Toast.LENGTH_SHORT).show();
             //Toast.makeText(this, getCallingActivity().getClassName(), Toast.LENGTH_SHORT).show();
         }
-        else if (categoryPicked.equals(getString(R.string.womens_pants_category))
+        else if (categoryPicked.equals(getString(R.string.mens_pants_category))
                 && getCallingActivity().getClassName().equals("com.lacys.MenScreen"))
         {
             Toast.makeText(this, "Show men's pants from database", Toast.LENGTH_SHORT).show();
@@ -86,5 +92,29 @@ public class MultipleProductDisplayScreen extends Activity {
             Toast.makeText(this, "Show home essentials from database", Toast.LENGTH_SHORT).show();
         }
 
+    }
+
+    public String[] getCategory()
+    {
+        Intent activityThatCalled = getIntent();
+        String categoryPicked[] = {"",""};
+        try {
+            categoryPicked[0] = activityThatCalled.getExtras().getString("categoryClicked");
+            categoryPicked[1] = getCallingActivity().getClassName();
+        }
+        catch(Exception e){
+            categoryPicked[0] = "";
+            categoryPicked[1] = "";
+        }
+
+        return categoryPicked;
+
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        //Close database
+        db.close();
     }
 }

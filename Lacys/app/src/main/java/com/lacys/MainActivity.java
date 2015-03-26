@@ -15,6 +15,7 @@ import android.widget.HorizontalScrollView;
 import android.widget.ImageView;
 import android.widget.ListAdapter;
 import android.widget.ListView;
+import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import java.util.Timer;
@@ -24,7 +25,7 @@ import static android.app.PendingIntent.getActivity;
 
 public class MainActivity extends ActionBarActivity {
 
-
+	private DBAdapter db;
     private HorizontalScrollView adDisplay;
 
     //animation is not working yet
@@ -35,6 +36,10 @@ public class MainActivity extends ActionBarActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        db = new DBAdapter(this);
+        db.init();
+        db.addProducts();
 
         String[] mainProductCategories = {getString(R.string.home_essentials_category),
                 getString(R.string.women_category), getString(R.string.men_category)};
@@ -121,6 +126,13 @@ public class MainActivity extends ActionBarActivity {
 
     }
 
+	@Override
+    protected void onDestroy() {
+        super.onDestroy();
+        //Close database
+        db.close();
+    }
+	
     /*
     private void scrollTo(int x) {
         ObjectAnimator animator = ObjectAnimator.ofInt(adDisplay, "scrollX", x);
