@@ -74,4 +74,10 @@ public class SingleProductViewScreen extends Activity
 
     }
 
+    public void LaunchWriteProductReview(View view)
+    {
+        Intent intent = new Intent(this, WriteProductReview.class);
+        startActivity(intent);
+    }
+
 }
