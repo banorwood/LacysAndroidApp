@@ -23,12 +23,11 @@
         android:id="@+id/textView2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="38dp"
         android:text="@string/email"
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:layout_below="@+id/textView1"
-        android:layout_toLeftOf="@+id/editTextEmail"
-        android:layout_toStartOf="@+id/editTextEmail" />
+        android:layout_alignLeft="@+id/textView"
+        android:layout_alignStart="@+id/textView" />
 
     <EditText
         android:inputType="text"
