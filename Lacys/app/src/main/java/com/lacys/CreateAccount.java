@@ -98,7 +98,6 @@ public class CreateAccount extends ActionBarActivity{
                     if (db.getDEBUG())
                         Log.i(db.getLogTag(), "LOGGING IN! AccID: " + accIDResult + " FirstName: " + fNameResult + " LastName: " + lNameResult + " Email: " + emailResult);
                     Toast.makeText(getApplicationContext(), "Your account " + emailResult + " has successfully been created! Your user id is " + accIDResult, Toast.LENGTH_SHORT).show();
-
                     startActivity(new Intent(this, MainActivity.class));
                 } else
                     Toast.makeText(getApplicationContext(), "Password is incorrect.", Toast.LENGTH_SHORT).show();

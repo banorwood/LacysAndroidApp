@@ -39,8 +39,8 @@ public class MultipleProductDisplayScreen extends Activity {
 
                 Intent i = new Intent(getApplicationContext(), SingleProductViewScreen.class);
                 i.putExtra("id", position);
+                i.putExtra("category", getCategory());
                 startActivity(i);
-
 
             }
         });
@@ -59,37 +59,37 @@ public class MultipleProductDisplayScreen extends Activity {
         if (categoryPicked.equals(getString(R.string.womens_shirts_category))
                 && getCallingActivity().getClassName().equals("com.lacys.WomenScreen"))
         {
-            Toast.makeText(this, "Show women's shirts from database", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "Loading products from women's shirts category", Toast.LENGTH_SHORT).show();
             //Toast.makeText(this, getCallingActivity().getClassName(), Toast.LENGTH_SHORT).show();
         }
         else if (categoryPicked.equals(getString(R.string.womens_pants_category))
                 && getCallingActivity().getClassName().equals("com.lacys.WomenScreen"))
         {
-            Toast.makeText(this, "Show women's pants from database", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "Loading products from women's pants category", Toast.LENGTH_SHORT).show();
         }
         //checking calling activity here because lacys may later add things like girls skirts and juniors skirts
         else if (categoryPicked.equals(getString(R.string.womens_skirts_category)) && getCallingActivity().getClassName().equals("com.lacys.WomenScreen"))
         {
-            Toast.makeText(this, "Show women's skirts from database", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "Loading products from women's skirts category", Toast.LENGTH_SHORT).show();
         }
 
         //Mens
         else if (categoryPicked.equals(getString(R.string.mens_shirts_category))
                 && getCallingActivity().getClassName().equals("com.lacys.MenScreen"))
         {
-            Toast.makeText(this, "Show men's shirts from database", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "Loading products from men's shirts category", Toast.LENGTH_SHORT).show();
             //Toast.makeText(this, getCallingActivity().getClassName(), Toast.LENGTH_SHORT).show();
         }
         else if (categoryPicked.equals(getString(R.string.mens_pants_category))
                 && getCallingActivity().getClassName().equals("com.lacys.MenScreen"))
         {
-            Toast.makeText(this, "Show men's pants from database", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "Loading products from men's pants category", Toast.LENGTH_SHORT).show();
         }
 
         //Home Essentials
         else if (categoryPicked.equals(getString(R.string.home_essentials_category)))
         {
-            Toast.makeText(this, "Show home essentials from database", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "Loading products from home essentials category", Toast.LENGTH_SHORT).show();
         }
 
     }

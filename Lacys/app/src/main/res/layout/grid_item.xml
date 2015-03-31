@@ -27,22 +27,38 @@
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
+        android:orientation="vertical"
+        android:gravity="center_horizontal|top"
         >
 
         <TextView
+            android:id="@+id/grid_item_text_2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="$20.00"
             android:paddingRight="5dp"
+            android:paddingLeft="5dp"
+            android:textColor="#000000"
             />
 
         <TextView
+            android:id="@+id/grid_item_text_3"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="$13.00"
+            android:paddingRight="2dp"
+            android:paddingLeft="2dp"
+            android:textColor="#D8000C"
+            />
+        <TextView
+            android:id="@+id/grid_item_text_4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="You save 20%!"
             android:paddingBottom="20dp"
             android:paddingRight="2dp"
+            android:paddingLeft="2dp"
+            android:textColor="#000000"
             />
 
 

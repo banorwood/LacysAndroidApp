@@ -39,7 +39,7 @@ public class MainActivity extends ActionBarActivity {
 
         db = new DBAdapter(this);
         db.init();
-        db.addProducts();
+        //db.addProducts();
 
         String[] mainProductCategories = {getString(R.string.home_essentials_category),
                 getString(R.string.women_category), getString(R.string.men_category)};
@@ -87,11 +87,15 @@ public class MainActivity extends ActionBarActivity {
                    }
                    else if (mainCategoryPicked.equals(getString(R.string.women_category)))
                    {
-                       startActivity(new Intent(MainActivity.this , WomenScreen.class));
+                       Intent sendCategoryResource = new Intent(MainActivity.this, WomenScreen.class);
+                       sendCategoryResource.putExtra("categoryClicked", getString(R.string.women_category));
+                       startActivity(sendCategoryResource);
                    }
                    else if (mainCategoryPicked.equals(getString(R.string.men_category)))
                    {
-                       startActivity(new Intent(MainActivity.this , MenScreen.class));
+                       Intent sendCategoryResource = new Intent(MainActivity.this, MenScreen.class);
+                       sendCategoryResource.putExtra("categoryClicked", getString(R.string.men_category));
+                       startActivity(sendCategoryResource);
                    }
 
                    //Toast.makeText(MainActivity.this, mainCategoryPicked, Toast.LENGTH_SHORT).show();
@@ -170,8 +174,9 @@ public class MainActivity extends ActionBarActivity {
     }
 
     public void onWomensClothingAdClick(View view) {
-
-        startActivity(new Intent(MainActivity.this , WomenScreen.class));
+        Intent sendCategoryResource = new Intent(MainActivity.this, WomenScreen.class);
+        sendCategoryResource.putExtra("categoryClicked", getString(R.string.women_category));
+        startActivity(sendCategoryResource);
     }
 
 
@@ -183,6 +188,8 @@ public class MainActivity extends ActionBarActivity {
 
 
     public void onMensClothingAdClick(View view) {
-        startActivity(new Intent(MainActivity.this , MenScreen.class));
+        Intent sendCategoryResource = new Intent(MainActivity.this, MenScreen.class);
+        sendCategoryResource.putExtra("categoryClicked", getString(R.string.men_category));
+        startActivity(sendCategoryResource);
     }
 }

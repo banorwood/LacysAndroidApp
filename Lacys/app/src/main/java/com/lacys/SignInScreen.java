@@ -22,12 +22,10 @@ public class SignInScreen extends ActionBarActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         //Create Database Adapter
-        db = new DBAdapter(this);
-        db.init();
-
-
         super.onCreate(savedInstanceState);
         setContentView(R.layout.signin_main);
+        db = new DBAdapter(this);
+        db.init();
         username = (EditText)findViewById(R.id.editTextEmail);
         password = (EditText)findViewById(R.id.editTextPwd);
         login = (Button)findViewById(R.id.button1);
@@ -72,10 +70,7 @@ public class SignInScreen extends ActionBarActivity {
 			String emailResult = results.getString(3);
 			String pwdResult = results.getString(4);
             if(pwdResult.equals(pass)) {
-                if (db.getDEBUG())
-                    Log.i(db.getLogTag(), "LOGGING IN! AccID: " + accIDResult + " FirstName: " + fNameResult + " LastName: " + lNameResult + " Email: " + emailResult);
                 Toast.makeText(getApplicationContext(), "Welcome back " + fNameResult + "! Your account email is " + emailResult, Toast.LENGTH_SHORT).show();
-
                 startActivity(new Intent(this, MainActivity.class));
             }
             else {
@@ -84,18 +79,8 @@ public class SignInScreen extends ActionBarActivity {
 		}
         else
         {
-            //Toast.makeText(getApplicationContext(), "Wrong Credentials! ", Toast.LENGTH_SHORT).show();
             Toast.makeText(getApplicationContext(), "Account does not exist! Please create one", Toast.LENGTH_SHORT).show();
             startActivity(new Intent(this , CreateAccount.class));
-
-            /*attempts.setBackgroundColor(Color.RED);
-            counter--;
-            attempts.setText(Integer.toString(counter));
-            if(counter==0){
-                login.setEnabled(false);
-            }*/
-
-            //db.createAccount(user,pass);
         }
     }
 

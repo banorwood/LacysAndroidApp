@@ -23,8 +23,13 @@ public class ImageAdapter extends BaseAdapter {
     private final Context context;
     private MultipleProductDisplayScreen mpds;
     private DBAdapter db;
-    private int count = 40;
-    public static int[] images = {R.drawable.test_image_1,R.drawable.menshirt1,R.drawable.menshirt2, R.drawable.menshirt3};
+    private int count = 2; //Amount of products in each category to display
+    public static int[] images = {
+            R.drawable.error,
+            R.drawable.menshirt1,
+            R.drawable.menshirt2,
+            R.drawable.menshirt3
+    };
     //public static String[] priceInfo = {"$28.35", "$55.43", "$32.45", "$89.34"};
 
     public ImageAdapter(Context applicationContext, MultipleProductDisplayScreen appMPDS, DBAdapter database)
@@ -53,7 +58,6 @@ public class ImageAdapter extends BaseAdapter {
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-        Log.i("LacyDB","getView");
         View MyView = convertView;
         if (MyView == null)
         {
@@ -75,38 +79,40 @@ public class ImageAdapter extends BaseAdapter {
                 fullCategory = "Home Essentials";
 
             ArrayList<String[]> products = db.getProducts(fullCategory);
-            count = products.size();
-            if (position < (products.size()+1)) {
+            count = products.size();    //Update the count of items to display
+            if (position < products.size()) {
                 String[] results = products.get(position);
                 if ((results != null)) {
                     String productName = results[0];
                     int productImgIndex = Integer.parseInt(results[1]);
+                    double productPrice = Double.parseDouble(results[2]);
+                    double productDiscount = Double.parseDouble(results[3]);
 
-                    if (db.getDEBUG()) {
-                        Log.i(db.getLogTag(), "productName: " + productName);
-                        Log.i(db.getLogTag(), "productImgIndex: " + productImgIndex);
-                    }
                     //Inflate the layout
                     LayoutInflater li = LayoutInflater.from(context);
                     MyView = li.inflate(R.layout.grid_item, null);
-
                     // Add The Text!!!
-                    TextView tv = (TextView) MyView.findViewById(R.id.grid_item_text);
-                    tv.setText(productName);
+                    TextView name = (TextView) MyView.findViewById(R.id.grid_item_text);
+                    name.setText(productName);
+
+                    TextView price = (TextView) MyView.findViewById(R.id.grid_item_text_2);
+                    price.setText("Was: $" + productPrice + "0");
+
+                    TextView priceText = (TextView) MyView.findViewById(R.id.grid_item_text_4);
+                    priceText.setText("You save " + (productDiscount * 100) + "%!");
+
+                    productDiscount = productPrice - (productPrice * productDiscount);
+                    TextView discount = (TextView) MyView.findViewById(R.id.grid_item_text_3);
+                    discount.setText("NOW: $" + productDiscount + "0");
 
                     // Add The Image!!!
-                    ImageView iv = (ImageView) MyView.findViewById(R.id.grid_item_image);
-                    iv.setImageResource(images[productImgIndex]);
-                /*
-                GridView.LayoutParams theGridViewParams = new GridView.LayoutParams(160,160);
-                iv.setLayoutParams(theGridViewParams);
-                */
+                    ImageView image = (ImageView) MyView.findViewById(R.id.grid_item_image);
+                    if (productImgIndex < images.length)
+                        image.setImageResource(images[productImgIndex]);
+                    else
+                        image.setImageResource(R.drawable.error);
                 }
-                else
-                    Log.i(db.getLogTag(), "Result Size: null");
             }
-            else
-                Log.i(db.getLogTag(), "Position: " + position + " Size: "+ products.size());
         }
         return MyView;
 
