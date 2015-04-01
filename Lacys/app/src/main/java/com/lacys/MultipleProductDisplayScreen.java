@@ -1,14 +1,12 @@
 package com.lacys;
 
 import android.app.Activity;
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.GridView;
 import android.widget.Toast;
-import android.util.Log;
 
 /**
  * Created by Christina on 2/15/2015.
