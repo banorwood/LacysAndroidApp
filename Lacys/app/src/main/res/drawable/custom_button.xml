@@ -14,7 +14,7 @@ http://stackoverflow.com/questions/1521640/standard-android-button-with-a-differ
                 android:angle="270" />
             <stroke
                 android:width="3dp"
-                android:color="@color/dark_purple" />
+                android:color="@color/dark_blue" />
             <corners
                 android:radius="3dp" />
             <padding
@@ -28,7 +28,7 @@ http://stackoverflow.com/questions/1521640/standard-android-button-with-a-differ
     <item android:state_focused="true" >
         <shape>
             <gradient
-                android:endColor="@color/dark_purple"
+                android:endColor="@color/dark_blue"
                 android:startColor="@color/black"
                 android:angle="270" />
             <stroke
@@ -47,12 +47,12 @@ http://stackoverflow.com/questions/1521640/standard-android-button-with-a-differ
     <item>
         <shape>
             <gradient
-                android:endColor="@color/dark_purple"
-                android:startColor="@color/light_purple"
+                android:endColor="@color/dark_blue"
+                android:startColor="@color/light_blue"
                 android:angle="270" />
             <stroke
                 android:width="3dp"
-                android:color="@color/dark_purple" />
+                android:color="@color/dark_blue" />
             <corners
                 android:radius="3dp" />
             <padding

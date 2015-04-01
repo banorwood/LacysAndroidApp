@@ -27,4 +27,13 @@
     <string name="lastName">Last Name:</string>
     <string name="email">Email:</string>
 
+    //nav drawer
+    <string name="title_section1">Home</string>
+    <string name="title_section2">View Orders</string>
+    <string name="title_section3">Contact Us</string>
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="action_example">Example action</string>
+
+
 </resources>

@@ -20,7 +20,9 @@
                 android:layout_height="70dp"
                 android:layout_marginLeft="10dp"
                 android:layout_marginTop="25dp"
-                android:src="@drawable/error"
+
+                android:layout_marginRight="10dp"
+
                 android:paddingBottom="10dp"
                 />
 
@@ -28,6 +30,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Remove"
+                android:background="@drawable/custom_button"
                 />
 
         </LinearLayout> <!--end vertical layout for image and remove button-->
