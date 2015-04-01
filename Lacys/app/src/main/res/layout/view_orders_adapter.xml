@@ -1,0 +1,159 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <!--horizontal layout for showing headings and values side by side-->
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:paddingTop="@dimen/list_item_padding"
+        android:paddingBottom="@dimen/list_item_padding"
+        >
+
+        <!--vertical layout for headings such as Order Placed:-->
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+             <TextView
+                 android:layout_width="wrap_content"
+                 android:layout_height="wrap_content"
+                 android:text="Order Placed: "
+                 android:paddingRight="@dimen/label_right_padding"
+
+                 />
+
+              <TextView
+                  android:layout_width="wrap_content"
+                  android:layout_height="wrap_content"
+                  android:text="Total: "
+                  android:paddingRight="@dimen/label_right_padding"
+                  />
+
+               <TextView
+                   android:layout_width="wrap_content"
+                   android:layout_height="wrap_content"
+                   android:text="Ship to: "
+                   android:paddingRight="@dimen/label_right_padding"
+                   />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Estimated Arrival: "
+                    android:paddingRight="@dimen/label_right_padding"
+                    />
+
+        </LinearLayout><!--end vertical layout for headings such as Order Placed:-->
+
+        <!--vertical layout for values of headings such as Order Placed:-->
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            >
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="3/6/2015"
+                />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="$21.86"
+                />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/ship_to_name"
+                android:text="Alice Manning"
+                />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="3/10/2015"
+                />
+
+         </LinearLayout> <!--end vertical layout for values of headings such as Order Placed:-->
+
+     </LinearLayout><!--end horizontal layout for showing headings and values side by side-->
+
+
+    <!--start vertical layout that shows the rest of the info-->
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Purchased"
+            android:textStyle="bold"
+            android:paddingTop="@dimen/orders_component_top_pad"
+            />
+
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Wrap Front Jersey (1)\nV neck cami (2)"
+            android:paddingTop="@dimen/orders_component_top_pad"
+            />
+        
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Shipping Address"
+            android:textStyle="bold"
+            android:paddingTop="@dimen/orders_component_top_pad"
+            />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="123 Fake Street\nDuluth, GA 30096"
+            />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Billing Address"
+            android:textStyle="bold"
+            android:paddingTop="@dimen/orders_component_top_pad"
+            />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="123 OtherFake Street\nDuluth, GA 30096"
+            />
+
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Payment"
+            android:textStyle="bold"
+            android:paddingTop="@dimen/orders_component_top_pad"
+            />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Visa ending in 3426"
+            android:paddingBottom="@dimen/list_item_padding"
+            />
+
+
+
+    </LinearLayout>
+
+</LinearLayout>
