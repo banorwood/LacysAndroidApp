@@ -24,15 +24,19 @@
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:paddingTop="20dp">
+        android:paddingTop="20dp"
+        android:layout_gravity="left"
+        >
 
         <TextView
             android:id="@+id/textView2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="30dp"
+            android:layout_marginRight="30dp"
             android:text="@string/email"
-            android:textAppearance="?android:attr/textAppearanceMedium" />
+            android:textAppearance="?android:attr/textAppearanceMedium"
+
+            />
 
         <EditText
             android:inputType="textEmailAddress"
@@ -80,7 +84,20 @@
         android:layout_gravity="center"
         android:layout_marginTop="10dp"
         android:onClick="login"
-        android:text="@string/Login" />
+        android:text="@string/Login"
+        android:background="@drawable/custom_button"
+        />
+
+    <TextView
+        android:id="@+id/NewCustomer"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:paddingTop="25dp"
+
+        android:text="New Customer?"
+        android:textAppearance="?android:attr/textAppearanceLarge" />
+
 
     <Button
         android:layout_width="wrap_content"
@@ -89,6 +106,10 @@
         android:layout_marginTop="10dp"
         android:text="@string/CreateAccount"
         android:id="@+id/button"
-        android:onClick="onCreateClick"/>
+        android:onClick="onCreateClick"
+        android:background="@drawable/custom_button"
+        />
+
+
 
 </LinearLayout>

@@ -26,6 +26,7 @@
             android:padding="5dp">
 
             <TextView
+                android:id="@+id/product_name"
                 android:layout_width="150dp"
                 android:layout_height="65dp"
                 android:layout_gravity="left"
@@ -93,6 +94,7 @@
             http://stackoverflow.com/questions/5382490/how-to-add-a-line-break-in-an-android-textview
             -->
             <TextView
+                android:id="@+id/product_details"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="50% cotton, 50% spandex\n"
@@ -130,6 +132,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textSize="20dp"
+                    android:id="@+id/ratingBarText"
                     android:text="4.7"
                     android:textStyle="bold"
                     android:paddingLeft="10dp"
