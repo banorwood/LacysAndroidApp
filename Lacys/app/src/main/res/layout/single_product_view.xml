@@ -26,7 +26,6 @@
             android:padding="5dp">
 
             <TextView
-                android:id="@+id/product_name"
                 android:layout_width="150dp"
                 android:layout_height="65dp"
                 android:layout_gravity="left"
@@ -47,8 +46,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:orientation="vertical" android:padding="5dp"
-            android:weightSum="1">
+            android:orientation="vertical" android:padding="5dp">
 
             <TextView
                 android:layout_width="match_parent"
@@ -95,7 +93,6 @@
             http://stackoverflow.com/questions/5382490/how-to-add-a-line-break-in-an-android-textview
             -->
             <TextView
-                android:id="@+id/product_details"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="50% cotton, 50% spandex\n"
@@ -133,7 +130,6 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textSize="20dp"
-                    android:id="@+id/ratingBarText"
                     android:text="4.7"
                     android:textStyle="bold"
                     android:paddingLeft="10dp"
@@ -149,24 +145,14 @@
             </LinearLayout>
 
             <Button
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_gravity="center"
                 android:paddingLeft="15dp"
                 android:paddingRight="15dp"
                 android:background="@drawable/custom_button"
-                android:text="Read product reviews"
-                android:id="@+id/" />
-
-            <Button
-                android:layout_width="354dp"
-                android:layout_height="wrap_content"
-                android:paddingLeft="15dp"
-                android:paddingRight="15dp"
-                android:background="@drawable/custom_button"
-                android:text="Review Item"
-                android:id="@+id/button2"
-                android:onClick="LaunchWriteProductReview"
-                android:layout_gravity="right" />
+                android:text="Read all 5 reviews"
+                />
 
         </LinearLayout>
 

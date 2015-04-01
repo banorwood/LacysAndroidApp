@@ -43,11 +43,17 @@ public class WomenScreen extends ActionBarActivity {
                    Intent sendCategoryResource = new Intent(WomenScreen.this, MultipleProductDisplayScreen.class);
 
                    if (subCategoryPicked.equals(getString(R.string.womens_shirts_category)))
+                   {
                        sendCategoryResource.putExtra("categoryClicked", getString(R.string.womens_shirts_category));
+                   }
                    else if (subCategoryPicked.equals(getString((R.string.womens_pants_category))))
+                   {
                        sendCategoryResource.putExtra("categoryClicked", getString(R.string.womens_pants_category));
+                   }
                    else if (subCategoryPicked.equals(getString(R.string.womens_skirts_category)))
+                   {
                        sendCategoryResource.putExtra("categoryClicked", getString(R.string.womens_skirts_category));
+                   }
 
                    //using startActivityForResult so that getCallingActivity.getClassName() in called activity will work
                    final int result = 1;

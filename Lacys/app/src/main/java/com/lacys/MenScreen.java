@@ -43,9 +43,13 @@ public class MenScreen extends ActionBarActivity {
                    Intent sendCategoryResource = new Intent(MenScreen.this, MultipleProductDisplayScreen.class);
 
                    if (subCategoryPicked.equals(getString(R.string.mens_shirts_category)))
+                   {
                        sendCategoryResource.putExtra("categoryClicked", getString(R.string.mens_shirts_category));
+                   }
                    else if (subCategoryPicked.equals(getString((R.string.mens_pants_category))))
+                   {
                        sendCategoryResource.putExtra("categoryClicked", getString(R.string.mens_pants_category));
+                   }
 
                    //using startActivityForResult() rather than startActivity() so that
                    // getCallingActivity.getClassName() in called activity will work
