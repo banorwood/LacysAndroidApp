@@ -17,6 +17,6 @@ public class BillingAddressScreen extends ActionBarActivity {
     }
 
     public void goToPayment(View view) {
-        startActivity(new Intent(this, BillingAddressScreen.class));
+        startActivity(new Intent(this, PaymentScreen.class));
     }
 }
