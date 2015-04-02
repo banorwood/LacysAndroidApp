@@ -154,8 +154,7 @@
                 android:paddingLeft="15dp"
                 android:paddingRight="15dp"
                 android:background="@drawable/custom_button"
-                android:text="Read product reviews"
-                android:id="@+id/" />
+                android:text="Read product reviews"/>
 
             <Button
                 android:layout_width="354dp"

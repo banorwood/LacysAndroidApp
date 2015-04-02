@@ -3,14 +3,12 @@ package com.lacys;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
+import android.widget.RatingBar;
 import android.widget.Spinner;
 import android.widget.TextView;
-import android.widget.RatingBar;
 
 import java.util.ArrayList;
 
@@ -128,15 +126,11 @@ public class SingleProductViewScreen extends Activity
         sizeSpinner.setAdapter(sizeSpinnerAdapter);
 
     }
-<<<<<<< HEAD
-
     public void LaunchWriteProductReview(View view)
     {
         Intent intent = new Intent(this, WriteProductReview.class);
         startActivity(intent);
     }
-
-=======
 	
 	@Override
     protected void onDestroy() {
@@ -144,5 +138,4 @@ public class SingleProductViewScreen extends Activity
         //Close database
         db.close();
     }
->>>>>>> origin/master
 }
