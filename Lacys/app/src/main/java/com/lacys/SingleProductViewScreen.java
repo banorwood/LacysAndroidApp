@@ -3,16 +3,10 @@ package com.lacys;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.Spinner;
-import android.widget.TextView;
-import android.widget.RatingBar;
-
-import java.util.ArrayList;
 
 /**
  * Created by cbredbe3177 on 2/19/2015.
@@ -22,70 +16,21 @@ public class SingleProductViewScreen extends Activity
     private int position;
     private Spinner colorSpinner;
     private Spinner sizeSpinner;
-	private DBAdapter db;
-	
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.single_product_view);
 
-        db = new DBAdapter(this);
-        db.init();
-        position = (Integer) getIntent().getExtras().get("id");
-        String categories[] = (String[])getIntent().getExtras().get("category");
-        String category = categories[0];
-        String calledClass = categories[1];
-        String fullCategory;
-        if (category.equals("Shirts") && calledClass.equals("com.lacys.WomenScreen"))
-            fullCategory = "Women " + category;
-        else if (category.equals("Pants") && calledClass.equals("com.lacys.WomenScreen"))
-            fullCategory = "Women " + category;
-        else if (category.equals("Skirts") && calledClass.equals("com.lacys.WomenScreen"))
-            fullCategory = "Women " + category;
-        else if (category.equals("Shirts") && calledClass.equals("com.lacys.MenScreen"))
-            fullCategory = "Men " + category;
-        else if (category.equals("Pants") && calledClass.equals("com.lacys.MenScreen"))
-            fullCategory = "Men " + category;
-        else
-            fullCategory = "Home Essentials";
+        Intent i = getIntent();
+        position = (Integer) i.getExtras().get("id");
 
-        ArrayList<String[]> products = db.getProducts(fullCategory);
-        if (position < products.size()) {
-            String[] results = products.get(position);
-            if ((results != null)) {
-                String productName = results[0];
-                int productImgIndex = Integer.parseInt(results[1]);
-                double productPrice = Double.parseDouble(results[2]);
-                double productDiscount = Double.parseDouble(results[3]);
-                String productDescription = results[4];
-                double productRating = Double.parseDouble(results[5]);
-
-                //Add The Text!!!
-                TextView name = (TextView) findViewById(R.id.product_name);
-                //Calulate the price with the discount added.
-                productPrice = productPrice - (productPrice * productDiscount);
-                name.setText(productName + "\n$" + productPrice + "0");
-
-                TextView details = (TextView) findViewById(R.id.product_details);
-                details.setText(productDescription);
-
-                RatingBar rating = (RatingBar) findViewById(R.id.ratingBar);
-                rating.setRating((float)productRating);
-
-                TextView ratingText = (TextView) findViewById(R.id.ratingBarText);
-                ratingText.setText("" + productRating);
-
-                // Add The Image!!!
-                ImageView image = (ImageView)findViewById(R.id.image_view);
-                if (productImgIndex < ImageAdapter.images.length)
-                    image.setImageResource(ImageAdapter.images[productImgIndex]);
-                else
-                    image.setImageResource(R.drawable.error);
-            }
-        }
+        ImageView iv = (ImageView) findViewById(R.id.image_view);
+        iv.setImageResource(ImageAdapter.images[position]);
 
         addItemsToColorSpinner();
         addItemsToSizeSpinner();
+
     }
 
     public void onAddToCartButtonClick(View view) {
@@ -128,21 +73,4 @@ public class SingleProductViewScreen extends Activity
         sizeSpinner.setAdapter(sizeSpinnerAdapter);
 
     }
-<<<<<<< HEAD
-
-    public void LaunchWriteProductReview(View view)
-    {
-        Intent intent = new Intent(this, WriteProductReview.class);
-        startActivity(intent);
-    }
-
-=======
-	
-	@Override
-    protected void onDestroy() {
-        super.onDestroy();
-        //Close database
-        db.close();
-    }
->>>>>>> origin/master
 }
