@@ -66,6 +66,10 @@
         <activity android:name=".PaymentScreen"
             android:label="Payment"
             android:theme="@style/AppTheme"/>
-    </application>
 
+        <activity
+            android:name=".BillingAddressScreen"
+            android:label="Billing"
+            android:theme="@style/AppTheme" />
+    </application>
 </manifest>

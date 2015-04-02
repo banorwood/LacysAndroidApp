@@ -1,15 +1,12 @@
 package com.lacys;
 
-import android.app.Activity;
-import android.graphics.Paint;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
+import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.ListAdapter;
 import android.widget.ListView;
-import android.widget.TextView;
-
-import java.util.ArrayList;
 
 /**
  * Created by Christina on 3/9/2015.
@@ -72,8 +69,9 @@ public class ShoppingCartScreen extends ActionBarActivity {
         // facts about the app and the events that have occurred with in it.
         // android.R.layout.simple_list_item_1 is one of the resources needed.
         // It is a predefined layout provided by Android that stands in as a default
+    }
 
-
-
+    public void goToShipping(View view) {
+        startActivity(new Intent(this, ShippingAddressScreen.class));
     }
 }

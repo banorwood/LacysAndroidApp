@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
     android:layout_height="match_parent">
 
     <!--slightly shorter than screen height so that Total can be
@@ -43,37 +44,35 @@
     </LinearLayout>
 
 
-   <LinearLayout
-       android:layout_width="wrap_content"
-       android:layout_height="wrap_content"
-       android:orientation="horizontal"
-       android:layout_gravity="center">
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_gravity="center">
 
-       <TextView
-           android:layout_width="wrap_content"
-           android:layout_height="wrap_content"
-           android:text="Total (Plus est. tax):"
-           android:textSize="10sp"
-           />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Total (Plus est. tax):"
+            android:textSize="10sp" />
 
-       <TextView
-           android:layout_width="wrap_content"
-           android:layout_height="wrap_content"
-           android:text="$40.86"
-           android:textSize="15sp"
-           android:textStyle="bold"
-           android:paddingRight="20dp"
-           android:paddingLeft="10dp"
-           />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="$40.86"
+            android:textSize="15sp"
+            android:textStyle="bold"
+            android:paddingRight="20dp"
+            android:paddingLeft="10dp" />
 
-       <Button
-           android:layout_width="wrap_content"
-           android:layout_height="wrap_content"
-           android:text="Check Out"
-           android:background="@drawable/custom_button"
-           />
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Check Out"
+            android:background="@drawable/custom_button"
+            android:onClick="goToShipping" />
 
-       </LinearLayout>
+    </LinearLayout>
 
 
 </LinearLayout>
