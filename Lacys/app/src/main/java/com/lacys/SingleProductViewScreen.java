@@ -73,5 +73,4 @@ public class SingleProductViewScreen extends Activity
         sizeSpinner.setAdapter(sizeSpinnerAdapter);
 
     }
-
 }
