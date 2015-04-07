@@ -315,6 +315,7 @@ public class DBAdapter{
         return data;
     }
 
+    
     public static Cursor getShoppingCartData(int userID)
     {
         SQLiteDatabase db = open();
@@ -332,6 +333,7 @@ public class DBAdapter{
 
         return null;
     }
+
 
     public static long addShoppingCartData(int userid, int productid, String color, String size)
     {

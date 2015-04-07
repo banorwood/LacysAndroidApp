@@ -42,11 +42,15 @@ public class CreateAccount extends ActionBarActivity{
 
         //Login screen redirects to create account screen if the account does not exist, so it will prepropulate
         // the username field with the username they attempted to login with.
-        String loginUser = (String)getIntent().getExtras().get("user");
-        if(!loginUser.equals("")) {
-            username.setText(loginUser);
-            password.requestFocus();
+        try
+        {
+            String loginUser = (String)getIntent().getExtras().get("user");
+            if(!loginUser.equals("")) {
+                username.setText(loginUser);
+                password.requestFocus();
+            }
         }
+        catch(Exception e) { }
     }
     public void create(View view) {
         String user = username.getText().toString();
