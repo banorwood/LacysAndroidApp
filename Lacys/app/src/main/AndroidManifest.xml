@@ -18,14 +18,8 @@
             </intent-filter>
         </activity>
         <activity
-            android:name="com.lacys.SignInScreen"
-            android:label="@string/Login" >
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
+            android:name=".SignInScreen"
+            android:label="@string/Login" />
 
         <activity android:name=".HomeEssentialsScreen"
             android:label="Home Essentials"
@@ -70,6 +64,10 @@
         <activity
             android:name=".BillingAddressScreen"
             android:label="Billing"
+            android:theme="@style/AppTheme" />
+        <activity
+            android:name=".WriteProductReview"
+            android:label="WriteProductReview"
             android:theme="@style/AppTheme" />
     </application>
 </manifest>

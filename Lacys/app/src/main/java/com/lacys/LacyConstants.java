@@ -11,7 +11,6 @@ public class LacyConstants {
     public static final String TABLE_ACCOUNT = "account";
     public static final String TABLE_ACCOUNTCHECKOUT = "accountcheckout";
     public static final String TABLE_BILLING = "billing";
-    public static final String TABLE_CART = "cart";
     public static final String TABLE_CHECKOUT = "checkout";
     public static final String TABLE_CLOTHINGORDER = "clothingorder";
     public static final String TABLE_ORDERS = "orders";
@@ -42,10 +41,6 @@ public class LacyConstants {
     public static final String TABLE_BILLING_CARDNUMBER = TABLE_BILLING + "_cardNumber";
     public static final String TABLE_BILLING_CARDEXPIRATION = TABLE_BILLING + "_cardExpiration";
     public static final String TABLE_BILLING_CARDCODE = TABLE_BILLING + "_cardCode";
-
-    // Shopping cart table Columns
-    public static final String TABLE_CART_ID = TABLE_CART + "_id";
-    public static final String TABLE_CART_ACCOUNT_ID = TABLE_CART + "_accountID";
 
     // Checkout table Columns
     public static final String TABLE_CHECKOUT_ID = TABLE_CHECKOUT + "_id";
@@ -86,10 +81,10 @@ public class LacyConstants {
     // Product order table Columns
     public static final String TABLE_PRODUCTORDER_ORDER_ID = TABLE_ORDERS_ID;
     public static final String TABLE_PRODUCTORDER_PRODUCT_ID = TABLE_PRODUCT_ID;
-    public static final String TABLE_PRODUCTORDER_CART_ID = TABLE_CART_ID;
     public static final String TABLE_PRODUCTORDER_QUANTITY = "quantity";
     public static final String TABLE_PRODUCTORDER_COLOR = "color";
     public static final String TABLE_PRODUCTORDER_SIZE = "size";
+    public static final String TABLE_PRODUCTORDER_ALREADYCHECKEDOUT = "alreadyCheckedOut";
 
     // Review table Columns
     public static final String TABLE_REVIEW_ID = TABLE_REVIEW + "_id";

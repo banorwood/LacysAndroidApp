@@ -23,8 +23,6 @@ public class DBAdapter{
     //Initialize/Open database
     public static void init(){
         if (getDBHelper() == null){
-            if (DEBUG)
-                Log.i(LOG_TAG, contxt.toString());
             DBHelper = new DBHelper(contxt);
         }
     }
@@ -37,7 +35,7 @@ public class DBAdapter{
     public static boolean getDEBUG(){
         return DEBUG;
     }
-	
+
     //Return LOGTAG object
     public static String getLogTag(){
         return LOG_TAG;
@@ -74,10 +72,6 @@ public class DBAdapter{
                     LacyConstants.TABLE_BILLING_PURCHASEDATE + " DATETIME, " + LacyConstants.TABLE_BILLING_CARDTYPE + " VARCHAR, " + LacyConstants.TABLE_BILLING_CARDNUMBER + " VARCHAR, " +
                     LacyConstants.TABLE_BILLING_CARDEXPIRATION + " DATETIME, " + LacyConstants.TABLE_BILLING_CARDCODE + " INTEGER);";
 
-            //Query to Create Cart Table
-            String CREATE_TABLE_CART = "CREATE TABLE " + LacyConstants.TABLE_CART + " (" + LacyConstants.TABLE_CART_ID + " INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL," +
-                    LacyConstants.TABLE_CART_ACCOUNT_ID + " INTEGER);";
-
             //Query to Create Checkout Table
             String CREATE_TABLE_CHECKOUT = "CREATE TABLE " + LacyConstants.TABLE_CHECKOUT + " (" + LacyConstants.TABLE_CHECKOUT_ID + " INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL," +
                     LacyConstants.TABLE_CHECKOUT_ORDER_ID + " INTEGER, " + LacyConstants.TABLE_CHECKOUT_FIRSTNAME + " VARCHAR, " + LacyConstants.TABLE_CHECKOUT_LASTNAME + " VARCHAR, " +
@@ -102,11 +96,10 @@ public class DBAdapter{
 
             //Query to Create Product Order Table
             String CREATE_TABLE_PRODUCTORDER = "CREATE TABLE " + LacyConstants.TABLE_PRODUCTORDER + " (" + LacyConstants.TABLE_PRODUCTORDER_ORDER_ID + " INTEGER," +
-                    LacyConstants.TABLE_PRODUCTORDER_PRODUCT_ID + " INTEGER, " + LacyConstants.TABLE_PRODUCTORDER_CART_ID + " INTEGER, " + LacyConstants.TABLE_PRODUCTORDER_QUANTITY +
-                    " INTEGER," + LacyConstants.TABLE_PRODUCTORDER_COLOR + " VARCHAR, " + LacyConstants.TABLE_PRODUCTORDER_SIZE + " VARCHAR, FOREIGN KEY(" +
-                    LacyConstants.TABLE_PRODUCTORDER_ORDER_ID + ") REFERENCES " + LacyConstants.TABLE_ORDERS + "(" + LacyConstants.TABLE_ORDERS_ID + "), FOREIGN KEY(" +
-                    LacyConstants.TABLE_PRODUCTORDER_PRODUCT_ID + ") REFERENCES " + LacyConstants.TABLE_PRODUCT + "(" + LacyConstants.TABLE_PRODUCT_ID + "), FOREIGN KEY(" +
-                    LacyConstants.TABLE_PRODUCTORDER_CART_ID + ") REFERENCES " + LacyConstants.TABLE_CART + "(" + LacyConstants.TABLE_CART_ID + "));";
+                    LacyConstants.TABLE_PRODUCTORDER_PRODUCT_ID + " INTEGER, " + LacyConstants.TABLE_PRODUCTORDER_ALREADYCHECKEDOUT +
+                    " BOOL NOT NULL DEFAULT false, " + LacyConstants.TABLE_PRODUCTORDER_QUANTITY + " INTEGER," + LacyConstants.TABLE_PRODUCTORDER_COLOR + " VARCHAR, " + LacyConstants.TABLE_PRODUCTORDER_SIZE
+                    + " VARCHAR, FOREIGN KEY(" + LacyConstants.TABLE_PRODUCTORDER_ORDER_ID + ") REFERENCES " + LacyConstants.TABLE_ORDERS + "(" + LacyConstants.TABLE_ORDERS_ID + "), FOREIGN KEY(" +
+                    LacyConstants.TABLE_PRODUCTORDER_PRODUCT_ID + ") REFERENCES " + LacyConstants.TABLE_PRODUCT + "(" + LacyConstants.TABLE_PRODUCT_ID + "));";
 
             //Query to Create Review Table
             String CREATE_TABLE_REVIEW = "CREATE TABLE " + LacyConstants.TABLE_REVIEW + " (" + LacyConstants.TABLE_REVIEW_ID + " INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL," +
@@ -122,7 +115,6 @@ public class DBAdapter{
                 db.execSQL(CREATE_TABLE_ACCOUNT);
                 db.execSQL(CREATE_TABLE_ACCOUNTCHECKOUT);
                 db.execSQL(CREATE_TABLE_BILLING);
-                db.execSQL(CREATE_TABLE_CART);
                 db.execSQL(CREATE_TABLE_CHECKOUT);
                 db.execSQL(CREATE_TABLE_CLOTHINGORDER);
                 db.execSQL(CREATE_TABLE_ORDERS);
@@ -131,55 +123,55 @@ public class DBAdapter{
                 db.execSQL(CREATE_TABLE_REVIEW);
                 db.execSQL(CREATE_TABLE_SHIPPING);
 
-				String products[][] = {
+                String products[][] = {
                         //name, description, price, discount, rating, isClothing, imgIndex, category
-						{"Men's Shirt 1","Product description to be done at a later date....","10.0","0.2","4.0","true","3","Men Shirts"},
-						{"Men's Shirt 2","Product description to be done at a later date....","20.0","0.25","5.0","true","1","Men Shirts"},
-						{"Men's Shirt 3","Product description to be done at a later date....","30.0","0.2","3.0","true","3","Men Shirts"},
-						{"Men's Shirt 4","Product description to be done at a later date....","40.0","0.3","2.0","true","2","Men Shirts"},
-						{"Men's Shirt 5","Product description to be done at a later date....","50.0","0.4","4.5","true","1","Men Shirts"},
-						{"Men's Shirt 6","Product description to be done at a later date....","60.0","0.35","5.0","true","1","Men Shirts"},
-						{"Men's Pant 1","Product description to be done at a later date....","10.0","0.0","4.0","true","0","Men Pants"},
-						{"Men's Pant 2","Product description to be done at a later date....","20.0","0.0","5.0","true","0","Men Pants"},
-						{"Men's Pant 3","Product description to be done at a later date....","30.0","0.0","3.0","true","0","Men Pants"},
-						{"Men's Pant 4","Product description to be done at a later date....","40.0","0.0","2.0","true","0","Men Pants"},
-						{"Men's Pant 5","Product description to be done at a later date....","50.0","0.0","4.5","true","0","Men Pants"},
-						{"Men's Pant 6","Product description to be done at a later date....","60.0","0.0","5.0","true","0","Men Pants"},
-						{"Men's Pant 7","Product description to be done at a later date....","70.0","0.0","1.0","true","0","Men Pants"},
-						{"Women's Skirt 1","Product description to be done at a later date....","10.0","0.0","1.0","true","0","Women Skirts"},
-						{"Women's Skirt 2","Product description to be done at a later date....","12.0","0.0","1.0","true","0","Women Skirts"},
-						{"Women's Skirt 3","Product description to be done at a later date....","14.0","0.0","1.0","true","0","Women Skirts"},
-						{"Women's Skirt 4","Product description to be done at a later date....","16.0","0.0","1.0","true","0","Women Skirts"},
-						{"Women's Skirt 5","Product description to be done at a later date....","19.0","0.0","1.0","true","0","Women Skirts"},
-						{"Women's Shirts 1","Product description to be done at a later date....","10.0","0.0","1.0","true","0","Women Shirts"},
-						{"Women's Shirts 2","Product description to be done at a later date....","12.0","0.0","1.0","true","0","Women Shirts"},
-						{"Women's Shirts 3","Product description to be done at a later date....","14.0","0.0","1.0","true","0","Women Shirts"},
-						{"Women's Shirts 4","Product description to be done at a later date....","16.0","0.0","1.0","true","0","Women Shirts"},
-						{"Women's Shirts 5","Product description to be done at a later date....","19.0","0.0","1.0","true","0","Women Shirts"},
-						{"Women's Pants 1","Product description to be done at a later date....","10.0","0.0","1.0","true","0","Women Pants"},
-						{"Women's Pants 2","Product description to be done at a later date....","12.0","0.0","1.0","true","0","Women Pants"},
-						{"Women's Pants 3","Product description to be done at a later date....","14.0","0.0","1.0","true","0","Women Pants"},
-						{"Women's Pants 4","Product description to be done at a later date....","16.0","0.0","1.0","true","0","Women Pants"},
-						{"Women's Pants 5","Product description to be done at a later date....","19.0","0.0","1.0","true","0","Women Pants"},
-						{"Tool Kit","Product description to be done at a later date....","10.0","0.0","1.0","false","0","Home Essentials"},
-						{"Light Bulbs","Product description to be done at a later date....","12.0","0.0","1.0","false","0","Home Essentials"},
-						{"Towels","Product description to be done at a later date....","14.0","0.0","1.0","false","0","Home Essentials"},
-						{"Sofa Cushion","Product description to be done at a later date....","16.0","0.0","1.0","false","0","Home Essentials"},
-						{"Table Cloth","Product description to be done at a later date....","19.0","0.0","1.0","false","0","Home Essentials"},
-				};
-				//SQLiteDatabase db = open();
-				ContentValues cVal = new ContentValues();
-				for (String p[] : products) {
-					cVal.put(LacyConstants.TABLE_PRODUCT_NAME, p[0]);
-					cVal.put(LacyConstants.TABLE_PRODUCT_DESCRIPTION, p[1]);
-					cVal.put(LacyConstants.TABLE_PRODUCT_PRICE, p[2]);
-					cVal.put(LacyConstants.TABLE_PRODUCT_DISCOUNT, p[3]);
-					cVal.put(LacyConstants.TABLE_PRODUCT_AVGRATING, p[4]);
-					cVal.put(LacyConstants.TABLE_PRODUCT_ISCLOTHING, p[5]);
-					cVal.put(LacyConstants.TABLE_PRODUCT_IMGINDEX, p[6]);
-					cVal.put(LacyConstants.TABLE_PRODUCT_CATEGORY, p[7]);
-					db.insert(LacyConstants.TABLE_PRODUCT, null, cVal);
-				}
+                        {"Men's Shirt 1","Product description to be done at a later date....","10.0","0.2","4.0","true","3","Men Shirts"},
+                        {"Men's Shirt 2","Product description to be done at a later date....","20.0","0.25","5.0","true","1","Men Shirts"},
+                        {"Men's Shirt 3","Product description to be done at a later date....","30.0","0.2","3.0","true","3","Men Shirts"},
+                        {"Men's Shirt 4","Product description to be done at a later date....","40.0","0.3","2.0","true","2","Men Shirts"},
+                        {"Men's Shirt 5","Product description to be done at a later date....","50.0","0.4","4.5","true","1","Men Shirts"},
+                        {"Men's Shirt 6","Product description to be done at a later date....","60.0","0.35","5.0","true","1","Men Shirts"},
+                        {"Men's Pant 1","Product description to be done at a later date....","10.0","0.0","4.0","true","0","Men Pants"},
+                        {"Men's Pant 2","Product description to be done at a later date....","20.0","0.0","5.0","true","0","Men Pants"},
+                        {"Men's Pant 3","Product description to be done at a later date....","30.0","0.0","3.0","true","0","Men Pants"},
+                        {"Men's Pant 4","Product description to be done at a later date....","40.0","0.0","2.0","true","0","Men Pants"},
+                        {"Men's Pant 5","Product description to be done at a later date....","50.0","0.0","4.5","true","0","Men Pants"},
+                        {"Men's Pant 6","Product description to be done at a later date....","60.0","0.0","5.0","true","0","Men Pants"},
+                        {"Men's Pant 7","Product description to be done at a later date....","70.0","0.0","1.0","true","0","Men Pants"},
+                        {"Women's Skirt 1","Product description to be done at a later date....","10.0","0.0","1.0","true","0","Women Skirts"},
+                        {"Women's Skirt 2","Product description to be done at a later date....","12.0","0.0","1.0","true","0","Women Skirts"},
+                        {"Women's Skirt 3","Product description to be done at a later date....","14.0","0.0","1.0","true","0","Women Skirts"},
+                        {"Women's Skirt 4","Product description to be done at a later date....","16.0","0.0","1.0","true","0","Women Skirts"},
+                        {"Women's Skirt 5","Product description to be done at a later date....","19.0","0.0","1.0","true","0","Women Skirts"},
+                        {"Women's Shirts 1","Product description to be done at a later date....","10.0","0.0","1.0","true","0","Women Shirts"},
+                        {"Women's Shirts 2","Product description to be done at a later date....","12.0","0.0","1.0","true","0","Women Shirts"},
+                        {"Women's Shirts 3","Product description to be done at a later date....","14.0","0.0","1.0","true","0","Women Shirts"},
+                        {"Women's Shirts 4","Product description to be done at a later date....","16.0","0.0","1.0","true","0","Women Shirts"},
+                        {"Women's Shirts 5","Product description to be done at a later date....","19.0","0.0","1.0","true","0","Women Shirts"},
+                        {"Women's Pants 1","Product description to be done at a later date....","10.0","0.0","1.0","true","0","Women Pants"},
+                        {"Women's Pants 2","Product description to be done at a later date....","12.0","0.0","1.0","true","0","Women Pants"},
+                        {"Women's Pants 3","Product description to be done at a later date....","14.0","0.0","1.0","true","0","Women Pants"},
+                        {"Women's Pants 4","Product description to be done at a later date....","16.0","0.0","1.0","true","0","Women Pants"},
+                        {"Women's Pants 5","Product description to be done at a later date....","19.0","0.0","1.0","true","0","Women Pants"},
+                        {"Tool Kit","Product description to be done at a later date....","10.0","0.0","1.0","false","0","Home Essentials"},
+                        {"Light Bulbs","Product description to be done at a later date....","12.0","0.0","1.0","false","0","Home Essentials"},
+                        {"Towels","Product description to be done at a later date....","14.0","0.0","1.0","false","0","Home Essentials"},
+                        {"Sofa Cushion","Product description to be done at a later date....","16.0","0.0","1.0","false","0","Home Essentials"},
+                        {"Table Cloth","Product description to be done at a later date....","19.0","0.0","1.0","false","0","Home Essentials"},
+                };
+                //SQLiteDatabase db = open();
+                ContentValues cVal = new ContentValues();
+                for (String p[] : products) {
+                    cVal.put(LacyConstants.TABLE_PRODUCT_NAME, p[0]);
+                    cVal.put(LacyConstants.TABLE_PRODUCT_DESCRIPTION, p[1]);
+                    cVal.put(LacyConstants.TABLE_PRODUCT_PRICE, p[2]);
+                    cVal.put(LacyConstants.TABLE_PRODUCT_DISCOUNT, p[3]);
+                    cVal.put(LacyConstants.TABLE_PRODUCT_AVGRATING, p[4]);
+                    cVal.put(LacyConstants.TABLE_PRODUCT_ISCLOTHING, p[5]);
+                    cVal.put(LacyConstants.TABLE_PRODUCT_IMGINDEX, p[6]);
+                    cVal.put(LacyConstants.TABLE_PRODUCT_CATEGORY, p[7]);
+                    db.insert(LacyConstants.TABLE_PRODUCT, null, cVal);
+                }
 
             } catch (Exception exception) {
             }
@@ -192,7 +184,6 @@ public class DBAdapter{
             db.execSQL("DROP TABLE IF EXISTS " + LacyConstants.TABLE_ACCOUNT);
             db.execSQL("DROP TABLE IF EXISTS " + LacyConstants.TABLE_ACCOUNTCHECKOUT);
             db.execSQL("DROP TABLE IF EXISTS " + LacyConstants.TABLE_BILLING);
-            db.execSQL("DROP TABLE IF EXISTS " + LacyConstants.TABLE_CART);
             db.execSQL("DROP TABLE IF EXISTS " + LacyConstants.TABLE_CHECKOUT);
             db.execSQL("DROP TABLE IF EXISTS " + LacyConstants.TABLE_CLOTHINGORDER);
             db.execSQL("DROP TABLE IF EXISTS " + LacyConstants.TABLE_ORDERS);
@@ -210,7 +201,6 @@ public class DBAdapter{
             db.execSQL("DROP TABLE IF EXISTS " + LacyConstants.TABLE_ACCOUNT);
             db.execSQL("DROP TABLE IF EXISTS " + LacyConstants.TABLE_ACCOUNTCHECKOUT);
             db.execSQL("DROP TABLE IF EXISTS " + LacyConstants.TABLE_BILLING);
-            db.execSQL("DROP TABLE IF EXISTS " + LacyConstants.TABLE_CART);
             db.execSQL("DROP TABLE IF EXISTS " + LacyConstants.TABLE_CHECKOUT);
             db.execSQL("DROP TABLE IF EXISTS " + LacyConstants.TABLE_CLOTHINGORDER);
             db.execSQL("DROP TABLE IF EXISTS " + LacyConstants.TABLE_ORDERS);
@@ -252,7 +242,7 @@ public class DBAdapter{
     }
     public static Cursor login(String email)
     {
-		String[] projection = {LacyConstants.TABLE_ACCOUNT_ID
+        String[] projection = {LacyConstants.TABLE_ACCOUNT_ID
                 , LacyConstants.TABLE_ACCOUNT_FIRSTNAME
                 , LacyConstants.TABLE_ACCOUNT_LASTNAME
                 , LacyConstants.TABLE_ACCOUNT_EMAIL
@@ -265,33 +255,34 @@ public class DBAdapter{
         String groupBy = null;
         String having = null;
         String sortOrder = null;
-		
-		SQLiteDatabase db = open();
+
+        SQLiteDatabase db = open();
         // do the query and get a cursor
         Cursor cursor = db.query(LacyConstants.TABLE_ACCOUNT,
                 projection, selection, selectionArguments, groupBy, having, sortOrder);
         //process the result and show the returned values in the log
         if (cursor.moveToFirst()) {
-			do {
-				return cursor;
-           } while (cursor.moveToNext());
+            do {
+                return cursor;
+            } while (cursor.moveToNext());
         }
         return null;
     }
 
-    public static Cursor createAccount(String email, String password, String first, String last)
+    public static long createAccount(String email, String password, String first, String last)
     {
+        long rid;
         SQLiteDatabase db = open();
         ContentValues cVal = new ContentValues();
         cVal.put(LacyConstants.TABLE_ACCOUNT_EMAIL,email);
         cVal.put(LacyConstants.TABLE_ACCOUNT_PASSWORD,password);
         cVal.put(LacyConstants.TABLE_ACCOUNT_FIRSTNAME,first);
         cVal.put(LacyConstants.TABLE_ACCOUNT_LASTNAME,last);
-        db.insert(LacyConstants.TABLE_ACCOUNT, null, cVal);
-        return null;
+        rid = db.insert(LacyConstants.TABLE_ACCOUNT, null, cVal);
+        return rid;
     }
-	
-	public static ArrayList<String[]> getProducts(String category)
+
+    public static ArrayList<String[]> getProducts(String category)
     {
         String[] products;
         ArrayList<String[]> data = new ArrayList<>();
@@ -302,24 +293,67 @@ public class DBAdapter{
         String groupBy = null;
         String having = null;
         String sortOrder = null;
-		
-		SQLiteDatabase db = open();
+
+        SQLiteDatabase db = open();
         // do the query and get a cursor
         Cursor cursor = db.query(LacyConstants.TABLE_PRODUCT,
                 null, selection, selectionArguments, groupBy, having, sortOrder);
         //process the result and show the returned values in the log
         if (cursor.moveToFirst()) {
-			do {
-                products = new String[6];
-				products[0] = cursor.getString(cursor.getColumnIndex(LacyConstants.TABLE_PRODUCT_NAME));
-				products[1] = cursor.getString(cursor.getColumnIndex(LacyConstants.TABLE_PRODUCT_IMGINDEX));
-				products[2] = cursor.getString(cursor.getColumnIndex(LacyConstants.TABLE_PRODUCT_PRICE));
-				products[3] = cursor.getString(cursor.getColumnIndex(LacyConstants.TABLE_PRODUCT_DISCOUNT));
-				products[4] = cursor.getString(cursor.getColumnIndex(LacyConstants.TABLE_PRODUCT_DESCRIPTION));
-				products[5] = cursor.getString(cursor.getColumnIndex(LacyConstants.TABLE_PRODUCT_AVGRATING));
+            do {
+                products = new String[7];
+                products[0] = cursor.getString(cursor.getColumnIndex(LacyConstants.TABLE_PRODUCT_NAME));
+                products[1] = cursor.getString(cursor.getColumnIndex(LacyConstants.TABLE_PRODUCT_IMGINDEX));
+                products[2] = cursor.getString(cursor.getColumnIndex(LacyConstants.TABLE_PRODUCT_PRICE));
+                products[3] = cursor.getString(cursor.getColumnIndex(LacyConstants.TABLE_PRODUCT_DISCOUNT));
+                products[4] = cursor.getString(cursor.getColumnIndex(LacyConstants.TABLE_PRODUCT_DESCRIPTION));
+                products[5] = cursor.getString(cursor.getColumnIndex(LacyConstants.TABLE_PRODUCT_AVGRATING));
+                products[6] = cursor.getString(cursor.getColumnIndex(LacyConstants.TABLE_PRODUCT_ID));
                 data.add(products);
-           } while (cursor.moveToNext());
+            } while (cursor.moveToNext());
         }
         return data;
+    }
+
+    public static Cursor getShoppingCartData(int userID)
+    {
+        SQLiteDatabase db = open();
+
+        Cursor c = db.rawQuery("SELECT po.rowid _id, * FROM " + LacyConstants.TABLE_PRODUCTORDER + " AS po LEFT JOIN " +
+                LacyConstants.TABLE_ORDERS + " AS o ON (po." + LacyConstants.TABLE_PRODUCTORDER_ORDER_ID + " = o." +
+                LacyConstants.TABLE_ORDERS_ID + ") LEFT JOIN " + LacyConstants.TABLE_PRODUCT + " AS p ON (po." +
+                LacyConstants.TABLE_PRODUCTORDER_PRODUCT_ID + " = p." + LacyConstants.TABLE_PRODUCT_ID + ") WHERE (o."+
+                LacyConstants.TABLE_ORDERS_ACCOUNT_ID + " = '" + userID + "') AND (po." + LacyConstants.TABLE_PRODUCTORDER_ALREADYCHECKEDOUT + " = 'false')",null);
+        if (c.moveToFirst()) {
+            do {
+                return c;
+            }while (c.moveToNext());
+        }
+
+        return null;
+    }
+
+    public static long addShoppingCartData(int userid, int productid, String color, String size)
+    {
+        long rid;
+        SQLiteDatabase db = open();
+        ContentValues cVal = new ContentValues();
+        cVal.put(LacyConstants.TABLE_ORDERS_ACCOUNT_ID,userid);
+        //Learned that the insert function returns -1 if an error occurs. So making sure no error occured before doing the next query
+        rid = db.insert(LacyConstants.TABLE_ORDERS, null, cVal);
+        if(rid != -1) {
+            ContentValues cVal2 = new ContentValues();
+            cVal2.put(LacyConstants.TABLE_PRODUCTORDER_ORDER_ID, rid);
+            cVal2.put(LacyConstants.TABLE_PRODUCTORDER_PRODUCT_ID, productid);
+            cVal2.put(LacyConstants.TABLE_PRODUCTORDER_COLOR, color);
+            cVal2.put(LacyConstants.TABLE_PRODUCTORDER_SIZE, size);
+            rid = db.insert(LacyConstants.TABLE_PRODUCTORDER, null, cVal2);
+        }
+        return rid;
+    }
+
+    public static void removeShoppingCartItem(int userid, int orderid)
+    {
+        //TO-DO
     }
 }
