@@ -282,6 +282,25 @@ public class DBAdapter{
         return rid;
     }
 
+
+    public static long addToCheckoutTable(String firstName, String lastName, String addressLine1,
+                                          String addressLine2, String city, int zipCode, String state )
+    {
+        long rid;
+        SQLiteDatabase db = open();
+        ContentValues cVal = new ContentValues();
+        cVal.put(LacyConstants.TABLE_CHECKOUT_FIRSTNAME, firstName);
+        cVal.put(LacyConstants.TABLE_CHECKOUT_LASTNAME, lastName);
+        cVal.put(LacyConstants.TABLE_CHECKOUT_ADDRESSLINE_1, addressLine1);
+        cVal.put(LacyConstants.TABLE_CHECKOUT_ADDRESSLINE_2, addressLine2);
+        cVal.put(LacyConstants.TABLE_CHECKOUT_CITY, city);
+        cVal.put(LacyConstants.TABLE_CHECKOUT_ZIPCODE, zipCode);
+        cVal.put(LacyConstants.TABLE_CHECKOUT_STATE, state);
+
+        rid = db.insert(LacyConstants.TABLE_CHECKOUT, null, cVal);
+        return rid;
+    }
+
     public static ArrayList<String[]> getProducts(String category)
     {
         String[] products;

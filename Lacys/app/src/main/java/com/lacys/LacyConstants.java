@@ -5,7 +5,7 @@ public class LacyConstants {
     // Database Name
     public static final String DATABASE_NAME = "lacys";
     //version number to upgrade database version
-    public static final int DATABASE_VERSION = 3;
+    public static final int DATABASE_VERSION = 4;
 
     //All the tables in database
     public static final String TABLE_ACCOUNT = "account";

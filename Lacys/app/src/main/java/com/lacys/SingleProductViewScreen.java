@@ -33,6 +33,13 @@ public class SingleProductViewScreen extends Activity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.single_product_view);
 
+        //estArrival is checked before going to checkout screen to make sure
+        //user has selected a shipping speed. estArrival is static so this is
+        //to make sure the user doesn't hit the back button three times, select another product
+        //and then estArrival already has a value even though the user didn't select
+        //a shipping speed for that product
+        ShoppingCartScreen.estArrival = null;
+
         db = new DBAdapter(this);
         db.init();
         system = System.getInstance();

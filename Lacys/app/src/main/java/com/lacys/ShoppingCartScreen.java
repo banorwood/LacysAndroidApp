@@ -1,5 +1,6 @@
 package com.lacys;
 
+import android.content.Context;
 import android.content.Intent;
 import android.app.Activity;
 import android.database.Cursor;
@@ -9,6 +10,7 @@ import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.support.v7.app.ActionBarActivity;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListAdapter;
@@ -19,6 +21,7 @@ import android.widget.ImageView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
 /**
@@ -31,11 +34,35 @@ public class ShoppingCartScreen extends ActionBarActivity {
 
     SimpleCursorAdapter shoppingCartAdapter;
 
+    //these change as soon as a shipping speed is clicked so that total
+    //can be automatically updated. estArrival and shippingCost are
+    //also used to make the shipping object. Static because they are
+    //called by method in anonymous inner class OnItemClickListener
+    private static ListView shippingListView;
+    public static Calendar estArrival;
+    public static double shippingCost;
+    private static Context cartContext;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.shopping_cart_screen);
+
+        cartContext = this.getApplicationContext();
+
+
+
+        //total is updated and estArrival and shippingCost change when
+        //a speed is selected.
+        shippingListView = (ListView) findViewById(R.id.shipping_speed_list);
+        shippingListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                ShoppingCartScreen.changeShippingSpeed(position);
+            }
+        });
 
         db = new DBAdapter(this);
         db.init();
@@ -148,7 +175,74 @@ public class ShoppingCartScreen extends ActionBarActivity {
         }
     }
 
-    public void goToShipping(View view) {
-        startActivity(new Intent(this, ShippingAddressScreen.class));
+
+
+    //making shipping object in ShoppingCartScreen rather than ShippingAddressScreen because
+    //it is here that the user selects the shipping speed.
+    private void makeShippingObject()
+    {
+
+
+    }
+
+    public void onCheckOutClick(View view) {
+
+        //check to make sure a shipping speed is selected
+
+        if (ShoppingCartScreen.estArrival != null )
+        {
+            //make shipping object
+            Shipping shipping = new Shipping(estArrival, shippingCost);
+
+            //set shipping object in Singleton System
+            System.getInstance().setShippingForNewOrder(shipping);
+
+            //go to shipping screen
+            startActivity(new Intent(this, ShippingAddressScreen.class));
+        }
+        else
+        {
+            Toast.makeText(getApplicationContext(), "Please select a shipping speed.", Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    private static void displayEstArrivalInToast(Calendar calendar)
+    {
+        //months in Calendar start at zero
+        int month = calendar.get(Calendar.MONTH) + 1;
+        String formattedDate = month + "-"  +
+                calendar.get(Calendar.DAY_OF_MONTH) + "-" + calendar.get(Calendar.YEAR);
+
+        Toast.makeText(ShoppingCartScreen.cartContext, "Estimated arrival: " + formattedDate, Toast.LENGTH_SHORT).show();
+    }
+
+    public static void changeShippingSpeed(int position) {
+        int daysToArrive = 0;
+        Shipping shipping;
+
+        ShoppingCartScreen.estArrival = Calendar.getInstance();
+
+        if (position == 0)
+        {
+            daysToArrive = 8;
+            ShoppingCartScreen.shippingCost = 0.0;
+            ShoppingCartScreen.estArrival.add(Calendar.DAY_OF_MONTH, daysToArrive);
+            ShoppingCartScreen.displayEstArrivalInToast(estArrival);
+        }
+        else if (position == 1)
+        {
+            daysToArrive = 4;
+            ShoppingCartScreen.shippingCost = 7.0;
+            ShoppingCartScreen.estArrival.add(Calendar.DAY_OF_MONTH, daysToArrive);
+            ShoppingCartScreen.displayEstArrivalInToast(estArrival);
+        }
+        else if (position == 2)
+        {
+            daysToArrive = 2;
+            ShoppingCartScreen.shippingCost = 16.0;
+            ShoppingCartScreen.estArrival.add(Calendar.DAY_OF_MONTH, daysToArrive);
+            ShoppingCartScreen.displayEstArrivalInToast(estArrival);
+        }
+
     }
 }

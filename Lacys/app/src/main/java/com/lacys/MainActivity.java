@@ -185,28 +185,28 @@ public class MainActivity extends ActionBarActivity implements NavigationDrawerF
                                                        @Override
                                                        public void onItemClick(AdapterView<?> adapterView, View view, int position, long id) {
 
-                                                           String mainCategoryPicked = String.valueOf(adapterView.getItemAtPosition(position) );
+           String mainCategoryPicked = String.valueOf(adapterView.getItemAtPosition(position) );
 
-                                                           if (mainCategoryPicked.equals(getString(R.string.home_essentials_category)))
-                                                           {
-                                                               //bug fix. Moved this code from HomeEssentialsScreen to here so 2 HomeEssentialScreen activities
-                                                               //are not started and user doesn't have to click back button twice
-                                                               Intent sendCategoryResource = new Intent(MainActivity.this, MultipleProductDisplayScreen.class);
-                                                               sendCategoryResource.putExtra("categoryClicked", getString(R.string.home_essentials_category));
-                                                               startActivity(sendCategoryResource);
+           if (mainCategoryPicked.equals(getString(R.string.home_essentials_category)))
+           {
+               //bug fix. Moved this code from HomeEssentialsScreen to here so 2 HomeEssentialScreen activities
+               //are not started and user doesn't have to click back button twice
+               Intent sendCategoryResource = new Intent(MainActivity.this, MultipleProductDisplayScreen.class);
+               sendCategoryResource.putExtra("categoryClicked", getString(R.string.home_essentials_category));
+               startActivity(sendCategoryResource);
 
-                                                           }
-                                                           else if (mainCategoryPicked.equals(getString(R.string.women_category)))
-                                                           {
-                                                               startActivity(new Intent(MainActivity.this , WomenScreen.class));
-                                                           }
-                                                           else if (mainCategoryPicked.equals(getString(R.string.men_category)))
-                                                           {
-                                                               startActivity(new Intent(MainActivity.this , MenScreen.class));
-                                                           }
+           }
+           else if (mainCategoryPicked.equals(getString(R.string.women_category)))
+           {
+               startActivity(new Intent(MainActivity.this , WomenScreen.class));
+           }
+           else if (mainCategoryPicked.equals(getString(R.string.men_category)))
+           {
+               startActivity(new Intent(MainActivity.this , MenScreen.class));
+           }
 
-                                                       }
-                                                   });
+       }
+   });
     }
 
     @Override
