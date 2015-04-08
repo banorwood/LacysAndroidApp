@@ -126,6 +126,13 @@ public class SingleProductViewScreen extends Activity
         sizeSpinner.setAdapter(sizeSpinnerAdapter);
 
     }
+
+    public void LaunchProductReview(View view)
+    {
+        Intent intent = new Intent(this, ProductReview.class);
+        startActivity(intent);
+    }
+
     public void LaunchWriteProductReview(View view)
     {
         Intent intent = new Intent(this, WriteProductReview.class);
