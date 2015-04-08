@@ -149,14 +149,23 @@
             </LinearLayout>
 
             <Button
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center"
                 android:paddingLeft="15dp"
                 android:paddingRight="15dp"
                 android:background="@drawable/custom_button"
-                android:text="Read all 5 reviews"
-                />
+                android:text="Read product reviews"/>
+
+            <Button
+                android:layout_width="354dp"
+                android:layout_height="wrap_content"
+                android:paddingLeft="15dp"
+                android:paddingRight="15dp"
+                android:background="@drawable/custom_button"
+                android:text="Review Item"
+                android:id="@+id/button2"
+                android:onClick="LaunchWriteProductReview"
+                android:layout_gravity="right" />
 
         </LinearLayout>
 
