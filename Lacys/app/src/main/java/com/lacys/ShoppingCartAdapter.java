@@ -38,7 +38,7 @@ class ShoppingCartAdapter extends ArrayAdapter<String> {
         String clothingName = getItem(position);
 
         // Get the TextView we want to edit
-        TextView theTextView = (TextView) theView.findViewById(R.id.shopping_cart_item_info);
+        TextView theTextView = (TextView) theView.findViewById(R.id.shopping_cart_item_name);
 
         // Put the clothing name into the TextView
         theTextView.setText(clothingName);
