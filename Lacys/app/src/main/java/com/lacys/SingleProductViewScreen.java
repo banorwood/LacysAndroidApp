@@ -3,12 +3,16 @@ package com.lacys;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.ImageView;
-import android.widget.RatingBar;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.RatingBar;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 
@@ -20,15 +24,25 @@ public class SingleProductViewScreen extends Activity
     private int position;
     private Spinner colorSpinner;
     private Spinner sizeSpinner;
-	private DBAdapter db;
-	
+    private int productID;
+    private DBAdapter db;
+    private System system;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.single_product_view);
 
+        //estArrival is checked before going to checkout screen to make sure
+        //user has selected a shipping speed. estArrival is static so this is
+        //to make sure the user doesn't hit the back button three times, select another product
+        //and then estArrival already has a value even though the user didn't select
+        //a shipping speed for that product
+        ShoppingCartScreen.estArrival = null;
+
         db = new DBAdapter(this);
         db.init();
+        system = System.getInstance();
         position = (Integer) getIntent().getExtras().get("id");
         String categories[] = (String[])getIntent().getExtras().get("category");
         String category = categories[0];
@@ -57,6 +71,7 @@ public class SingleProductViewScreen extends Activity
                 double productDiscount = Double.parseDouble(results[3]);
                 String productDescription = results[4];
                 double productRating = Double.parseDouble(results[5]);
+                productID = Integer.parseInt(results[6]);
 
                 //Add The Text!!!
                 TextView name = (TextView) findViewById(R.id.product_name);
@@ -82,14 +97,36 @@ public class SingleProductViewScreen extends Activity
             }
         }
 
+
         addItemsToColorSpinner();
         addItemsToSizeSpinner();
     }
 
     public void onAddToCartButtonClick(View view) {
+        int userID = system.getUserID();
+        if(userID != 0) {
+            Intent i = new Intent(getApplicationContext(), ShoppingCartScreen.class);
+            //i.putExtra("id", position);
+            //i.putExtra("category", (String[])getIntent().getExtras().get("category"));
 
-        Intent i = new Intent(getApplicationContext(), ShoppingCartScreen.class);
-        startActivity(i);
+            Spinner spinnerC = (Spinner) findViewById(R.id.color_spinner);
+            String color = spinnerC.getSelectedItem().toString();
+            Spinner spinnerS = (Spinner) findViewById(R.id.size_spinner);
+            String size = spinnerS.getSelectedItem().toString();
+
+            if (db.addShoppingCartData(userID, productID, color, size) != -1) {
+                startActivity(i);
+                finish();
+            }
+            else
+                Toast.makeText(getApplicationContext(), "Could not add product to cart.", Toast.LENGTH_SHORT).show();
+        }
+        else {
+            Intent i = new Intent(getApplicationContext(), SignInScreen.class);
+            i.putExtra("return", "close");
+            startActivity(i);
+            Toast.makeText(getApplicationContext(), "Please login in order to add to cart.", Toast.LENGTH_SHORT).show();
+        }
     }
 
 
@@ -127,19 +164,22 @@ public class SingleProductViewScreen extends Activity
 
     }
 
+<<<<<<< HEAD
     public void LaunchProductReview(View view)
     {
         Intent intent = new Intent(this, ProductReview.class);
         startActivity(intent);
     }
 
+=======
+>>>>>>> origin/master
     public void LaunchWriteProductReview(View view)
     {
-        Intent intent = new Intent(this, WriteProductReview.class);
-        startActivity(intent);
+        Intent i = new Intent(this, WriteProductReview.class);
+        startActivity(i);
     }
-	
-	@Override
+
+    @Override
     protected void onDestroy() {
         super.onDestroy();
         //Close database
