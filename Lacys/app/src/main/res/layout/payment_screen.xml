@@ -41,7 +41,7 @@
             android:layout_height="wrap_content"
             android:inputType="number"
             android:ems="10"
-            android:id="@+id/cardNumEditText" />
+            android:id="@+id/editText7" />
 
         <TextView
             android:layout_width="wrap_content"
@@ -66,7 +66,7 @@
         <Spinner
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/yearSpinner"
+            android:id="@+id/spinner5"
             android:layout_weight="1"
             android:spinnerMode="dropdown" />
     </LinearLayout>
@@ -88,7 +88,7 @@
             android:layout_height="wrap_content"
             android:inputType="number"
             android:ems="10"
-            android:id="@+id/secCode" />
+            android:id="@+id/editText8" />
         </LinearLayout>
 
     <RelativeLayout

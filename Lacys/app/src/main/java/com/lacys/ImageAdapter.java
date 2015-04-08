@@ -23,7 +23,7 @@ public class ImageAdapter extends BaseAdapter {
     private final Context context;
     private MultipleProductDisplayScreen mpds;
     private DBAdapter db;
-    private int count = 1; //Amount of products in each category to display
+    private int count = 2; //Amount of products in each category to display
     public static int[] images = {
             R.drawable.error,
             R.drawable.menshirt1,
@@ -110,7 +110,7 @@ public class ImageAdapter extends BaseAdapter {
                     if (productImgIndex < images.length)
                         image.setImageResource(images[productImgIndex]);
                     else
-                        image.setImageResource(images[0]);
+                        image.setImageResource(R.drawable.error);
                 }
             }
         }
