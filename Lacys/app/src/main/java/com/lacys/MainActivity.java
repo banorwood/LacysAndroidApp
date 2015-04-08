@@ -11,7 +11,6 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.app.ActionBarDrawerToggle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -25,7 +24,6 @@ import android.widget.ImageView;
 import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.LinearLayout;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.Timer;
@@ -36,8 +34,7 @@ import static android.app.PendingIntent.getActivity;
 public class MainActivity extends ActionBarActivity implements NavigationDrawerFragment.NavigationDrawerCallbacks  {
 
 
-    private DBAdapter db;
-    private System system;
+	private DBAdapter db;
     /**
      * Fragment managing the behaviors, interactions and presentation of the navigation drawer.
      */
@@ -60,20 +57,11 @@ public class MainActivity extends ActionBarActivity implements NavigationDrawerF
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+
         db = new DBAdapter(this);
         db.init();
+        //db.addProducts();
 
-        //Get the current system instance
-        system = System.getInstance();
-        //system.setUserID(1);
-        //Get the user id
-        int userID = system.getUserID();
-        TextView signInButton = (TextView)findViewById(R.id.sign_in_out_button);
-        //Determine if the user is logged in or not.
-        if(userID == 0)
-            signInButton.setText("Sign In");
-        else
-            signInButton.setText("Sign Out");
 
         this.setUpNavDrawer();
 
@@ -152,13 +140,13 @@ public class MainActivity extends ActionBarActivity implements NavigationDrawerF
     }
 
 
-    @Override
+	@Override
     protected void onDestroy() {
         super.onDestroy();
         //Close database
         db.close();
     }
-
+	
     /*animation not working yet
     private void scrollTo(int x) {
         ObjectAnimator animator = ObjectAnimator.ofInt(adDisplay, "scrollX", x);
@@ -181,9 +169,9 @@ public class MainActivity extends ActionBarActivity implements NavigationDrawerF
 
         //click on different product categories to launch different screens
         theListView.setOnItemClickListener(new
-                                                   AdapterView.OnItemClickListener() {
-                                                       @Override
-                                                       public void onItemClick(AdapterView<?> adapterView, View view, int position, long id) {
+           AdapterView.OnItemClickListener() {
+               @Override
+               public void onItemClick(AdapterView<?> adapterView, View view, int position, long id) {
 
            String mainCategoryPicked = String.valueOf(adapterView.getItemAtPosition(position) );
 
@@ -228,18 +216,6 @@ public class MainActivity extends ActionBarActivity implements NavigationDrawerF
             startActivity(new Intent(MainActivity.this , ViewOrdersActivity.class));
 
         }
-        if (position == 2)
-        {
-            int userID = system.getUserID();
-            if(userID != 0)
-                startActivity(new Intent(MainActivity.this , ShoppingCartScreen.class));
-            else {
-                Intent i = new Intent(getApplicationContext(), SignInScreen.class);
-                i.putExtra("return", "close");
-                startActivity(i);
-                Toast.makeText(getApplicationContext(), "Please login in order to view cart.", Toast.LENGTH_SHORT).show();
-            }
-        }
     }
 
     public void onSectionAttached(int number) {
@@ -252,9 +228,6 @@ public class MainActivity extends ActionBarActivity implements NavigationDrawerF
                 break;
             case 3:
                 mTitle = getString(R.string.title_section3);
-                break;
-            case 4:
-                mTitle = getString(R.string.title_section4);
                 break;
         }
     }
@@ -340,14 +313,7 @@ public class MainActivity extends ActionBarActivity implements NavigationDrawerF
 
     //for now only starts sign in activity. later on may also make user sign out.
     public void onSignInOutButtonClick(View view) {
-        if (system.getUserID() == 0)
-            startActivity(new Intent(this, SignInScreen.class));
-        else {
-            system.setUserID(0);
-            Toast.makeText(this, "Successfully logged out.", Toast.LENGTH_SHORT).show();
-            TextView signInButton = (TextView)findViewById(R.id.sign_in_out_button);
-            signInButton.setText("Sign In");
-        }
+        startActivity(new Intent(this, SignInScreen.class));
     }
 
     public void onWomensClothingAdClick(View view) {
