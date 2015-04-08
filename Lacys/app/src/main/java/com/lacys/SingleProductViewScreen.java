@@ -163,6 +163,7 @@ public class SingleProductViewScreen extends Activity
         sizeSpinner.setAdapter(sizeSpinnerAdapter);
 
     }
+<<<<<<< HEAD
 
 <<<<<<< HEAD
     public void LaunchProductReview(View view)
@@ -173,6 +174,8 @@ public class SingleProductViewScreen extends Activity
 
 =======
 >>>>>>> origin/master
+=======
+>>>>>>> parent of 1c6104c... Product Review pages updated
     public void LaunchWriteProductReview(View view)
     {
         Intent i = new Intent(this, WriteProductReview.class);
