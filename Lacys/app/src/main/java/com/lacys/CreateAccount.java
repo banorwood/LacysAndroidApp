@@ -55,42 +55,42 @@ public class CreateAccount extends ActionBarActivity{
         String con = confirm.getText().toString();
         String fst = first.getText().toString();
         String lst = last.getText().toString();
-        int i = 0;
+        boolean fail = false;
 
         if(user.length()==0) {
             username.setError("Email is required!");
-            i = 1;
+            fail = true;
         }
         if (!isValidEmail(user)){
             username.setError("Please enter a proper email address!");
-            i = 1;
+            fail = true;
         }
         if(pass.length()==0) {
             password.setError("Password is required!");
-            i = 1;
+            fail = true;
         }
         if(pass.length()<6) {
             password.setError("Password must be at least 6 characters!");
-            i = 1;
+            fail = true;
         }
         if(con.length()==0) {
             confirm.setError("Password is required!");
-            i = 1;
+            fail = true;
         }
         if(!con.equals(pass)) {
             confirm.setError("Passwords must match!");
-            i = 1;
+            fail = true;
         }
         if(fst.length()==0) {
             first.setError("First Name is required!");
-            i = 1;
+            fail = true;
         }
         if(lst.length()==0) {
             last.setError("Last Name is required!");
-            i = 1;
+            fail = true;
         }
 
-        if(i==1)
+        if (fail)
             return;
 
         if(db.accountExists(user))
