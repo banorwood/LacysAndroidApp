@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.Spinner;
 
 /**
  * Created by blakenorwood on 3/24/15.
@@ -13,6 +14,7 @@ public class BillingAddressScreen extends ActionBarActivity {
 
     EditText fNameEditText, lNameEditText, addressLine1EditText, addressLine4EditText, cityEditText,
             zipCodeEditText;
+    Spinner spinner;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,6 +28,7 @@ public class BillingAddressScreen extends ActionBarActivity {
         addressLine4EditText = (EditText) findViewById(R.id.addressLine4EditText);
         cityEditText = (EditText) findViewById(R.id.cityEditText);
         zipCodeEditText = (EditText) findViewById(R.id.zipCodeEditText);
+        spinner = (Spinner) findViewById(R.id.stateSpinner2);
 
         Intent intentExtras = getIntent();
         Bundle bundle = intentExtras.getExtras();
@@ -36,6 +39,7 @@ public class BillingAddressScreen extends ActionBarActivity {
             addressLine4EditText.setText(bundle.getString("addressLine4"));
             cityEditText.setText(bundle.getString("city"));
             zipCodeEditText.setText(bundle.getString("zip"));
+            spinner.setSelection(bundle.getInt("index"));
         }
     }
 
@@ -68,8 +72,14 @@ public class BillingAddressScreen extends ActionBarActivity {
             zipCodeEditText.setError("Zip Code is required!");
             fail = true;
         }
+        if (zipCode.length() > 5) {
+            zipCodeEditText.setError("Zip Code is less than 5 #'s!");
+            fail = true;
+        }
         if (fail)
             return;
+
+        //add to database here
 
         startActivity(new Intent(this, PaymentScreen.class));
     }

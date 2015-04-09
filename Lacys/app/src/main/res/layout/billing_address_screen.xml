@@ -21,7 +21,8 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:id="@+id/billingLayout">
 
 
             <TextView
@@ -123,7 +124,7 @@
             <Spinner
                 android:layout_width="match_parent"
                 android:layout_height="42dp"
-                android:id="@+id/stateSpinner"
+                android:id="@+id/stateSpinner2"
                 android:drawSelectorOnTop="true"
                 android:entries="@array/spinnerItems"
                 android:layout_gravity="center_horizontal"

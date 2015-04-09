@@ -6,6 +6,7 @@ import android.support.v7.app.ActionBarActivity;
 import android.view.View;
 import android.widget.CheckBox;
 import android.widget.EditText;
+import android.widget.Spinner;
 
 
 /**
@@ -16,6 +17,7 @@ public class ShippingAddressScreen extends ActionBarActivity {
     EditText fNameEditText, lNameEditText, addressLine1EditText, addressLine4EditText, cityEditText,
             zipCodeEditText;
     private CheckBox checkBox;
+    private Spinner spinner;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,6 +31,7 @@ public class ShippingAddressScreen extends ActionBarActivity {
         cityEditText = (EditText) findViewById(R.id.cityEditText);
         zipCodeEditText = (EditText) findViewById(R.id.zipCodeEditText);
         checkBox = (CheckBox) findViewById(R.id.checkBox);
+        spinner = (Spinner) findViewById(R.id.stateSpinner);
 
     }
 
@@ -63,9 +66,14 @@ public class ShippingAddressScreen extends ActionBarActivity {
             zipCodeEditText.setError("Zip Code is required!");
             fail = true;
         }
+        if (zipCode.length() > 5) {
+            zipCodeEditText.setError("Zip Code is less than 5 #'s!");
+            fail = true;
+        }
         if (fail)
             return;
 
+        int index = getIndex(spinner, spinner.getSelectedItem().toString());
 
         if (checkBox.isChecked()) {
             Intent intentBundle = new Intent(this, BillingAddressScreen.class);
@@ -76,12 +84,29 @@ public class ShippingAddressScreen extends ActionBarActivity {
             bundle.putString("addressLine4", addressLine4);
             bundle.putString("city", city);
             bundle.putString("zip", zipCode);
+            bundle.putInt("index", index);
             intentBundle.putExtras(bundle);
+
+            //add to database here
+
             startActivity(intentBundle);
         } else
+            //add to database here
+
             //launch screen for entering billing address
             startActivity(new Intent(this, BillingAddressScreen.class));
 
 
+    }
+
+    private int getIndex(Spinner spinner, String s) {
+        int index = 0;
+        for (int i = 0; i < spinner.getCount(); i++) {
+            if (spinner.getItemAtPosition(i).equals(s)) {
+                index = i;
+                return index;
+            }
+        }
+        return index;
     }
 }
