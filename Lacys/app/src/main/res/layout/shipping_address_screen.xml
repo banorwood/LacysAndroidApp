@@ -123,8 +123,11 @@
             <Spinner
                 android:layout_width="match_parent"
                 android:layout_height="42dp"
-                android:id="@+id/spinner2"
-                android:layout_gravity="center_horizontal" />
+                android:id="@+id/stateSpinner"
+                android:drawSelectorOnTop="true"
+                android:entries="@array/spinnerItems"
+                android:layout_gravity="center_horizontal"
+                android:spinnerMode="dropdown" />
 
 
             <CheckBox
