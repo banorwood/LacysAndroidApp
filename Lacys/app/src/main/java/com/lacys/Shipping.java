@@ -14,7 +14,6 @@ public class Shipping
     //constructor
     //called by ShoppingCartScreen
     public Shipping(Calendar arrivalDate, Double cost) {
-
         this.arrivalDate = arrivalDate;
         this.cost = cost;
     }
