@@ -1,5 +1,4 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="horizontal"
@@ -31,6 +30,8 @@
                 android:layout_height="wrap_content"
                 android:text="Remove"
                 android:background="@drawable/custom_button"
+                android:onClick="onRemoveCartButtonClick"
+                android:id="@+id/shopping_cart_remove_button"
                 />
 
         </LinearLayout> <!--end vertical layout for image and remove button-->
@@ -45,7 +46,7 @@
             >
             <!-- Used to define a custom ListView row -->
             <TextView
-                android:id="@+id/shopping_cart_item_info"
+                android:id="@+id/shopping_cart_item_name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textSize="15sp"

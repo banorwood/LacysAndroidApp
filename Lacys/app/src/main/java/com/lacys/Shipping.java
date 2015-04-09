@@ -5,8 +5,7 @@ import java.util.Calendar;
 /**
  * Created by Christina on 4/7/2015.
  */
-public class Shipping
-{
+public class Shipping {
     Calendar arrivalDate;
     Double cost;
     CheckOut checkOut;
@@ -14,6 +13,7 @@ public class Shipping
     //constructor
     //called by ShoppingCartScreen
     public Shipping(Calendar arrivalDate, Double cost) {
+
         this.arrivalDate = arrivalDate;
         this.cost = cost;
     }

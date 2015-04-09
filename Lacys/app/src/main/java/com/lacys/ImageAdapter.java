@@ -1,19 +1,14 @@
 package com.lacys;
 
 import android.content.Context;
-import android.content.Intent;
-import android.database.Cursor;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import java.util.ArrayList;
-import java.util.List;
 
 /**
  * Created by cbredbe3177 on 2/19/2015.
@@ -23,7 +18,7 @@ public class ImageAdapter extends BaseAdapter {
     private final Context context;
     private MultipleProductDisplayScreen mpds;
     private DBAdapter db;
-    private int count = 2; //Amount of products in each category to display
+    private int count = 1; //Amount of products in each category to display
     public static int[] images = {
             R.drawable.error,
             R.drawable.menshirt1,
@@ -32,8 +27,7 @@ public class ImageAdapter extends BaseAdapter {
     };
     //public static String[] priceInfo = {"$28.35", "$55.43", "$32.45", "$89.34"};
 
-    public ImageAdapter(Context applicationContext, MultipleProductDisplayScreen appMPDS, DBAdapter database)
-    {
+    public ImageAdapter(Context applicationContext, MultipleProductDisplayScreen appMPDS, DBAdapter database) {
         context = applicationContext;
         mpds = appMPDS;
         db = database;
@@ -59,8 +53,7 @@ public class ImageAdapter extends BaseAdapter {
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         View MyView = convertView;
-        if (MyView == null)
-        {
+        if (MyView == null) {
             String categories[] = mpds.getCategory();
             String category = categories[0];
             String calledClass = categories[1];
@@ -110,7 +103,7 @@ public class ImageAdapter extends BaseAdapter {
                     if (productImgIndex < images.length)
                         image.setImageResource(images[productImgIndex]);
                     else
-                        image.setImageResource(R.drawable.error);
+                        image.setImageResource(images[0]);
                 }
             }
         }

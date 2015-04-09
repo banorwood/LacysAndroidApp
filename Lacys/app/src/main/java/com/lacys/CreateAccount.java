@@ -1,11 +1,9 @@
 package com.lacys;
 
-import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -38,6 +36,18 @@ public class CreateAccount extends ActionBarActivity{
         first = (EditText)findViewById(R.id.editTextFname);
         last = (EditText)findViewById(R.id.editTextLname);
         create = (Button)findViewById(R.id.button);
+
+
+        //Login screen redirects to create account screen if the account does not exist, so it will prepropulate
+        // the username field with the username they attempted to login with.
+        try {
+            String loginUser = (String) getIntent().getExtras().get("user");
+            if (!loginUser.equals("")) {
+                username.setText(loginUser);
+                password.requestFocus();
+            }
+        } catch (Exception e) {
+        }
     }
     public void create(View view) {
         String user = username.getText().toString();
@@ -86,23 +96,22 @@ public class CreateAccount extends ActionBarActivity{
         if(db.accountExists(user))
             Toast.makeText(getApplicationContext(), "Account " + user + " already exists!'", Toast.LENGTH_SHORT).show();
         else {
-            db.createAccount(user, pass, fst, lst);
-            Cursor results = db.login(user);
-            if ((results != null) && (results.getCount() > 0)) {
-                int accIDResult = results.getInt(0);
-                String fNameResult = results.getString(1);
-                String lNameResult = results.getString(2);
-                String emailResult = results.getString(3);
-                String pwdResult = results.getString(4);
-                if (pwdResult.equals(pass)) {
-                    if (db.getDEBUG())
-                        Log.i(db.getLogTag(), "LOGGING IN! AccID: " + accIDResult + " FirstName: " + fNameResult + " LastName: " + lNameResult + " Email: " + emailResult);
-                    Toast.makeText(getApplicationContext(), "Your account " + emailResult + " has successfully been created! Your user id is " + accIDResult, Toast.LENGTH_SHORT).show();
-                    startActivity(new Intent(this, MainActivity.class));
+            if (db.createAccount(user, pass, fst, lst) != -1) {
+                Cursor results = db.login(user);
+                if ((results != null) && (results.getCount() > 0)) {
+                    int accIDResult = results.getInt(0);
+                    String emailResult = results.getString(3);
+                    String pwdResult = results.getString(4);
+                    if (pwdResult.equals(pass)) {
+                        Toast.makeText(getApplicationContext(), "Your account " + emailResult + " has successfully been created! Your user id is " + accIDResult, Toast.LENGTH_SHORT).show();
+                        //startActivity(new Intent(this, MainActivity.class));
+                        finish();
+                    } else
+                        Toast.makeText(getApplicationContext(), "Password is incorrect.", Toast.LENGTH_SHORT).show();
                 } else
-                    Toast.makeText(getApplicationContext(), "Password is incorrect.", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getApplicationContext(), "Account was not created. Please try again later. ", Toast.LENGTH_SHORT).show();
             } else
-                Toast.makeText(getApplicationContext(), "Account was not created. Please try again later. ", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getApplicationContext(), "An error occured trying to create the account. Please try again later.", Toast.LENGTH_SHORT).show();
         }
     }
 
