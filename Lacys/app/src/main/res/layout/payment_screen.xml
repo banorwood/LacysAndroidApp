@@ -18,19 +18,6 @@
         android:orientation="vertical">
 
         <TextView
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceMedium"
-            android:text="*Card Type"
-            android:id="@+id/typeTextView" />
-
-        <Spinner
-            android:layout_width="match_parent"
-            android:layout_height="38dp"
-            android:id="@+id/spinner"
-            android:spinnerMode="dropdown" />
-
-        <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceMedium"
@@ -40,9 +27,24 @@
         <EditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:inputType="number"
             android:ems="10"
-            android:id="@+id/cardNumEditText" />
+            android:id="@+id/cardNumEditText"
+            android:inputType="text" />
+
+        <TextView
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:text="*Card Type"
+            android:id="@+id/typeTextView" />
+
+        <Spinner
+            android:layout_width="match_parent"
+            android:layout_height="38dp"
+            android:id="@+id/typeSpinner"
+            android:drawSelectorOnTop="true"
+            android:entries="@array/typeItems"
+            android:spinnerMode="dropdown" />
 
         <TextView
             android:layout_width="wrap_content"
@@ -62,12 +64,16 @@
             android:layout_width="179dp"
             android:layout_height="wrap_content"
             android:id="@+id/monthSpinner"
+            android:drawSelectorOnTop="true"
+            android:entries="@array/monthItems"
             android:spinnerMode="dropdown" />
 
         <Spinner
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/yearSpinner"
+            android:drawSelectorOnTop="true"
+            android:entries="@array/yearItems"
             android:layout_weight="1"
             android:spinnerMode="dropdown" />
     </LinearLayout>
@@ -89,7 +95,7 @@
             android:layout_height="wrap_content"
             android:inputType="number"
             android:ems="10"
-            android:id="@+id/secCode" />
+            android:id="@+id/secCodeEditText" />
     </LinearLayout>
 
     <RelativeLayout
@@ -103,6 +109,7 @@
             android:layout_height="wrap_content"
             android:text="Finish"
             android:id="@+id/finishBtn"
-            android:layout_alignParentRight="true" />
+            android:layout_alignParentRight="true"
+            android:onClick="submitOrder" />
     </RelativeLayout>
 </LinearLayout>
