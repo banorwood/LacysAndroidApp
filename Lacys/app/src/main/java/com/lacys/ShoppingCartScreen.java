@@ -170,11 +170,6 @@ public class ShoppingCartScreen extends ActionBarActivity {
 
     //making shipping object in ShoppingCartScreen rather than ShippingAddressScreen because
     //it is here that the user selects the shipping speed.
-    private void makeShippingObject() {
-
-
-    }
-
     public void onCheckOutClick(View view) {
 
         //check to make sure a shipping speed is selected
@@ -204,7 +199,6 @@ public class ShoppingCartScreen extends ActionBarActivity {
 
     public static void changeShippingSpeed(int position) {
         int daysToArrive = 0;
-        Shipping shipping;
 
         ShoppingCartScreen.estArrival = Calendar.getInstance();
 

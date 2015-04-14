@@ -83,7 +83,7 @@
                 android:layout_height="wrap_content"
                 android:inputType="textPostalAddress"
                 android:ems="10"
-                android:id="@+id/addressLine4EditText" />
+                android:id="@+id/addressLine2EditText" />
 
             <TextView
                 android:layout_width="wrap_content"

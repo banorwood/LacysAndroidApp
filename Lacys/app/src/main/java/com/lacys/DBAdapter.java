@@ -8,12 +8,14 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 
 public class DBAdapter {
     private static final boolean DEBUG = true;
     private static final String LOG_TAG = "LacyDB";
     private static DBHelper DBHelper = null;
     private static Context contxt;
+
 
     public DBAdapter(Context context) {
         contxt = context;
@@ -69,8 +71,8 @@ public class DBAdapter {
 
             //Query to Create Billing Table
             String CREATE_TABLE_BILLING = "CREATE TABLE " + LacyConstants.TABLE_BILLING + " (" + LacyConstants.TABLE_BILLING_ID + " INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL," +
-                    LacyConstants.TABLE_BILLING_PURCHASEDATE + " DATETIME, " + LacyConstants.TABLE_BILLING_CARDTYPE + " VARCHAR, " + LacyConstants.TABLE_BILLING_CARDNUMBER + " VARCHAR, " +
-                    LacyConstants.TABLE_BILLING_CARDEXPIRATION + " DATETIME, " + LacyConstants.TABLE_BILLING_CARDCODE + " INTEGER);";
+                    LacyConstants.TABLE_BILLING_PURCHASEDATE + " LONG, " + LacyConstants.TABLE_BILLING_CARDTYPE + " VARCHAR, " + LacyConstants.TABLE_BILLING_CARDNUMBER + " VARCHAR, " +
+                    LacyConstants.TABLE_BILLING_CARDEXPIRATION + " LONG, " + LacyConstants.TABLE_BILLING_CARDCODE + " INTEGER);";
 
             //Query to Create Checkout Table
             String CREATE_TABLE_CHECKOUT = "CREATE TABLE " + LacyConstants.TABLE_CHECKOUT + " (" + LacyConstants.TABLE_CHECKOUT_ID + " INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL," +
@@ -108,7 +110,7 @@ public class DBAdapter {
 
             //Query to Create Shipping Table
             String CREATE_TABLE_SHIPPING = "CREATE TABLE " + LacyConstants.TABLE_SHIPPING + " (" + LacyConstants.TABLE_SHIPPING_ID + " INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL," +
-                    LacyConstants.TABLE_SHIPPING_DATE + " DATETIME, " + LacyConstants.TABLE_SHIPPING_ARRIVALDATE + " DATETIME, " + LacyConstants.TABLE_SHIPPING_COST + " DOUBLE);";
+                     LacyConstants.TABLE_SHIPPING_ARRIVALDATE + " LONG, " + LacyConstants.TABLE_SHIPPING_COST + " DOUBLE);";
 
             try {
                 //Execute the queries to the database
@@ -282,21 +284,98 @@ public class DBAdapter {
     }
 
 
-    public static long addToCheckoutTable(String firstName, String lastName, String addressLine1,
-                                          String addressLine2, String city, int zipCode, String state) {
+
+
+
+    private static long writePaymentInfo(Billing billing)
+    {
         long rid;
         SQLiteDatabase db = open();
         ContentValues cVal = new ContentValues();
-        cVal.put(LacyConstants.TABLE_CHECKOUT_FIRSTNAME, firstName);
-        cVal.put(LacyConstants.TABLE_CHECKOUT_LASTNAME, lastName);
-        cVal.put(LacyConstants.TABLE_CHECKOUT_ADDRESSLINE_1, addressLine1);
-        cVal.put(LacyConstants.TABLE_CHECKOUT_ADDRESSLINE_2, addressLine2);
-        cVal.put(LacyConstants.TABLE_CHECKOUT_CITY, city);
-        cVal.put(LacyConstants.TABLE_CHECKOUT_ZIPCODE, zipCode);
-        cVal.put(LacyConstants.TABLE_CHECKOUT_STATE, state);
+        cVal.put(LacyConstants.TABLE_BILLING_PURCHASEDATE, billing.getPurchaseDate().getTimeInMillis());
+        cVal.put(LacyConstants.TABLE_BILLING_CARDTYPE, billing.getCardType());
+        cVal.put(LacyConstants.TABLE_BILLING_CARDNUMBER, billing.getCardNum());
+        cVal.put(LacyConstants.TABLE_BILLING_CARDEXPIRATION, billing.getExpDate().getTimeInMillis());
+        cVal.put(LacyConstants.TABLE_BILLING_CARDCODE, billing.getSecurityCode());
+
+        rid = db.insert(LacyConstants.TABLE_BILLING, null, cVal);
+        return rid;
+    }
+
+    private static long writeShippingInfo(Shipping shipping)
+    {
+        long rid;
+        SQLiteDatabase db = open();
+        ContentValues cVal = new ContentValues();
+
+        //I don't think we should have a shipping date because we already have
+        //a purchase date in the payment table
+        cVal.put(LacyConstants.TABLE_SHIPPING_ARRIVALDATE, shipping.getArrivalDate().getTimeInMillis() );
+        cVal.put(LacyConstants.TABLE_SHIPPING_COST, shipping.getCost() );
+
+        rid = db.insert(LacyConstants.TABLE_SHIPPING, null, cVal);
+        return rid;
+    }
+
+    //null is passed for shippingId if this is only a billing address.
+    //likewise null is passed for billing id if this is a billing address.
+    //if billing and shipping are the same, both ids are passed
+    public static long writeToCheckOutTable(CheckOut checkOut, Long shippingId, Long billingId) {
+        long rid;
+        SQLiteDatabase db = open();
+        ContentValues cVal = new ContentValues();
+        cVal.put(LacyConstants.TABLE_CHECKOUT_FIRSTNAME, checkOut.getFirstName());
+        cVal.put(LacyConstants.TABLE_CHECKOUT_LASTNAME, checkOut.getLastName());
+        cVal.put(LacyConstants.TABLE_CHECKOUT_ADDRESSLINE_1, checkOut.getAddressLine1());
+        cVal.put(LacyConstants.TABLE_CHECKOUT_ADDRESSLINE_2, checkOut.getAddressLine2());
+        cVal.put(LacyConstants.TABLE_CHECKOUT_CITY, checkOut.getCity());
+        cVal.put(LacyConstants.TABLE_CHECKOUT_ZIPCODE, checkOut.getZipCode());
+        cVal.put(LacyConstants.TABLE_CHECKOUT_STATE, checkOut.getState());
+
+        if (shippingId != null)
+        {
+            cVal.put(LacyConstants.TABLE_CHECKOUT_SHIPPING_ID, shippingId);
+        }
+        if (billingId != null)
+        {
+            cVal.put(LacyConstants.TABLE_CHECKOUT_BILLING_ID, billingId);
+        }
 
         rid = db.insert(LacyConstants.TABLE_CHECKOUT, null, cVal);
         return rid;
+    }
+
+    //Writes to shipping, billing, and checkout tables using the billing object and shipping object
+    //in System
+    public static void writeAllCheckOutInfo()
+    {
+        //shippingId and billingId are optional foreign keys in the checkout table
+        long billingId;
+        long shippingId;
+
+        Shipping shipping = System.getInstance().getShippingForNewOrder();
+        Billing billing = System.getInstance().getBillingForNewOrder();
+
+        shippingId = DBAdapter.writeShippingInfo(shipping);
+        billingId = DBAdapter.writePaymentInfo(billing);
+
+        //if they both share the same memory space, they are the same so only make
+        //one row in the checkout table. Set the foreign keys for the shipping and billing id
+        //in that row
+        if (shipping.getCheckOut() == billing.getCheckOut())
+        {
+            DBAdapter.writeToCheckOutTable(shipping.getCheckOut(), shippingId, billingId);
+        }
+        else //make two rows in CheckOut table
+        {
+            //write shipping address to CheckOut table and set the foreign key for the
+            //shipping id
+            DBAdapter.writeToCheckOutTable(shipping.getCheckOut(), shippingId, null);
+
+            //make a different row for the billing address in the checkout table and set the foreign
+            //key for the billing id
+            DBAdapter.writeToCheckOutTable(billing.getCheckOut(), null, billingId);
+        }
     }
 
     public static ArrayList<String[]> getProducts(String category) {
