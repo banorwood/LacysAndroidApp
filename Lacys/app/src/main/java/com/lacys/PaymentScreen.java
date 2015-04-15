@@ -10,7 +10,6 @@ import android.widget.Spinner;
 import android.widget.Toast;
 
 import java.util.Calendar;
-import java.util.Date;
 
 /**
  * Created by blakenorwood on 4/1/15.
@@ -39,6 +38,7 @@ public class PaymentScreen extends ActionBarActivity {
     public void submitOrder(View view) {
 
         boolean fail = false;
+        boolean error = false;
 
         //get values from EditTexts and Spinners
         String cardType = this.cardTypeSpinner.getSelectedItem().toString();
@@ -46,6 +46,24 @@ public class PaymentScreen extends ActionBarActivity {
         int month = (Integer) this.monthSpinner.getSelectedItemPosition();
         int year = Integer.parseInt(this.yearSpinner.getSelectedItem().toString());
         int secCode = Integer.parseInt(this.secCodeEditText.getText().toString());
+
+        if (cardNumEditText.length() < 15) {
+            cardNumEditText.setError("Card Number too short!");
+            error = true;
+        }
+
+        if (cardNumEditText.length() > 17) {
+            cardNumEditText.setError("Card Number too long!");
+            error = true;
+        }
+
+        if (!(secCodeEditText.length() == 3)) {
+            secCodeEditText.setError("Email is required!");
+            error = true;
+        }
+
+        if (error == true)
+            return;
 
         //get the billing object from system which was created by BillingAddressScreen
         Billing billing = System.getInstance().getBillingForNewOrder();
