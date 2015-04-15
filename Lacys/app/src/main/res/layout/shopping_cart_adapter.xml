@@ -1,4 +1,5 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="horizontal"
@@ -30,7 +31,6 @@
                 android:layout_height="wrap_content"
                 android:text="Remove"
                 android:background="@drawable/custom_button"
-                android:onClick="onRemoveCartButtonClick"
                 android:id="@+id/shopping_cart_remove_button"
                 />
 
@@ -94,9 +94,11 @@
                         android:textSize="15sp"
                         />
 
-                    <EditText
-                        android:layout_width="30dp"
-                        android:layout_height="wrap_content" />
+                    <Spinner
+                        android:id="@+id/quantity_spinner"
+                        android:layout_width="45dp"
+                        android:layout_height="wrap_content"
+                        />
 
                 </LinearLayout> <!--end quantity horizontal layout-->
 
