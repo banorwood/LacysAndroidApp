@@ -7,20 +7,17 @@ import java.util.Calendar;
  */
 public class Billing {
 
-    Calendar purchaseDate;
-    int cardType;
-    int cardNum;
-    int expDate;
-    int securityCode;
-    CheckOut checkOut;
+    private Calendar purchaseDate;
+    private String cardType;
+    private long cardNum;
+    private Calendar expDate;
+    private int securityCode;
+    private CheckOut checkOut;
 
-    public Billing(CheckOut checkOut, Calendar purchaseDate, int cardType, int cardNum, int expDate, int securityCode) {
+    //checkout for this object is either created by billing screen or it is a reference to
+    //the checkout in the shipping object. The other attributes are added by the payment screen.
+    public Billing(CheckOut checkOut) {
         this.checkOut = checkOut;
-        this.purchaseDate = purchaseDate;
-        this.cardType = cardType;
-        this.cardNum = cardNum;
-        this.expDate = expDate;
-        this.securityCode = securityCode;
     }
 
     public Calendar getPurchaseDate() {
@@ -31,27 +28,27 @@ public class Billing {
         this.purchaseDate = purchaseDate;
     }
 
-    public int getCardType() {
+    public String getCardType() {
         return cardType;
     }
 
-    public void setCardType(int cardType) {
+    public void setCardType(String cardType) {
         this.cardType = cardType;
     }
 
-    public int getCardNum() {
+    public long getCardNum() {
         return cardNum;
     }
 
-    public void setCardNum(int cardNum) {
+    public void setCardNum(long cardNum) {
         this.cardNum = cardNum;
     }
 
-    public int getExpDate() {
+    public Calendar getExpDate() {
         return expDate;
     }
 
-    public void setExpDate(int expDate) {
+    public void setExpDate(Calendar expDate) {
         this.expDate = expDate;
     }
 

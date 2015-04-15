@@ -46,6 +46,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:paddingTop="10dp"
                 android:textAppearance="?android:attr/textAppearanceMedium"
                 android:text="Last Name"
                 android:id="@+id/textView4" />
@@ -60,6 +61,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:paddingTop="10dp"
                 android:textAppearance="?android:attr/textAppearanceMedium"
                 android:text="Address Line 1"
                 android:id="@+id/textView5" />
@@ -74,6 +76,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:paddingTop="10dp"
                 android:textAppearance="?android:attr/textAppearanceMedium"
                 android:text="Address Line 2"
                 android:id="@+id/textView6" />
@@ -83,11 +86,12 @@
                 android:layout_height="wrap_content"
                 android:inputType="textPostalAddress"
                 android:ems="10"
-                android:id="@+id/addressLine4EditText" />
+                android:id="@+id/addressLine2EditText" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:paddingTop="10dp"
                 android:textAppearance="?android:attr/textAppearanceMedium"
                 android:text="Town/City"
                 android:id="@+id/textView7" />
@@ -102,6 +106,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:paddingTop="10dp"
                 android:textAppearance="?android:attr/textAppearanceMedium"
                 android:text="Zip Code"
                 android:id="@+id/textView8" />
@@ -116,12 +121,14 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:paddingTop="10dp"
                 android:textAppearance="?android:attr/textAppearanceMedium"
                 android:text="State"
                 android:id="@+id/textView9" />
 
             <Spinner
                 android:layout_width="match_parent"
+                android:paddingTop="10dp"
                 android:layout_height="42dp"
                 android:id="@+id/stateSpinner"
                 android:drawSelectorOnTop="true"

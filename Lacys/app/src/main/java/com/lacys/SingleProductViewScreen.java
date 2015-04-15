@@ -3,12 +3,15 @@ package com.lacys;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.ImageView;
-import android.widget.RatingBar;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.RatingBar;
 import android.widget.Toast;
 
 import java.util.ArrayList;
@@ -29,8 +32,8 @@ public class SingleProductViewScreen extends Activity
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.single_product_view);
-
-        //estArrival is checked before going to checkout screen to make sure
+		
+		//estArrival is checked before going to checkout screen to make sure
         //user has selected a shipping speed. estArrival is static so this is
         //to make sure the user doesn't hit the back button three times, select another product
         //and then estArrival already has a value even though the user didn't select
@@ -101,7 +104,7 @@ public class SingleProductViewScreen extends Activity
 
     public void onAddToCartButtonClick(View view) {
         int userID = system.getUserID();
-        if (userID != 0) {
+        if(userID != 0) {
             Intent i = new Intent(getApplicationContext(), ShoppingCartScreen.class);
             //i.putExtra("id", position);
             //i.putExtra("category", (String[])getIntent().getExtras().get("category"));
@@ -111,12 +114,15 @@ public class SingleProductViewScreen extends Activity
             Spinner spinnerS = (Spinner) findViewById(R.id.size_spinner);
             String size = spinnerS.getSelectedItem().toString();
 
-            if (db.addShoppingCartData(userID, productID, color, size) != -1) {
+            long po_id = db.addShoppingCartData(userID, productID, color, size);
+            if (po_id != -1) {
                 startActivity(i);
                 finish();
-            } else
+            }
+            else
                 Toast.makeText(getApplicationContext(), "Could not add product to cart.", Toast.LENGTH_SHORT).show();
-        } else {
+        }
+        else {
             Intent i = new Intent(getApplicationContext(), SignInScreen.class);
             i.putExtra("return", "close");
             startActivity(i);
