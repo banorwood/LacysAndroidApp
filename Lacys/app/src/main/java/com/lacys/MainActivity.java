@@ -65,7 +65,7 @@ public class MainActivity extends ActionBarActivity implements NavigationDrawerF
 
         //Get the current system instance
         system = System.getInstance();
-        system.setUserID(1);
+        //system.setUserID(1);
         //Get the user id
         int userID = system.getUserID();
         TextView signInButton = (TextView)findViewById(R.id.sign_in_out_button);
