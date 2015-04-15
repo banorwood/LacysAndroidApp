@@ -6,9 +6,9 @@ import java.util.Calendar;
  * Created by Christina on 4/7/2015.
  */
 public class Shipping {
-    private Calendar arrivalDate;
-    private Double cost;
-    private CheckOut checkOut;
+    Calendar arrivalDate;
+    Double cost;
+    CheckOut checkOut;
 
     //constructor
     //called by ShoppingCartScreen

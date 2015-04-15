@@ -1,19 +1,14 @@
 package com.lacys;
 
 import android.content.Context;
-import android.content.Intent;
-import android.database.Cursor;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import java.util.ArrayList;
-import java.util.List;
 
 /**
  * Created by cbredbe3177 on 2/19/2015.
@@ -28,26 +23,11 @@ public class ImageAdapter extends BaseAdapter {
             R.drawable.error,
             R.drawable.menshirt1,
             R.drawable.menshirt2,
-            R.drawable.menshirt3,
-            R.drawable.menshirt4,
-            R.drawable.menshirt5,
-            R.drawable.menshirt6,
-            R.drawable.menpants1,
-            R.drawable.menpants2,
-            R.drawable.menpants3,
-            R.drawable.menpants4,
-            R.drawable.menpants5,
-            R.drawable.menpants6,
-            R.drawable.womenskirt1,
-            R.drawable.womenskirt2,
-            R.drawable.womenskirt3,
-            R.drawable.womenskirt4,
-            R.drawable.womenskirt5,
+            R.drawable.menshirt3
     };
     //public static String[] priceInfo = {"$28.35", "$55.43", "$32.45", "$89.34"};
 
-    public ImageAdapter(Context applicationContext, MultipleProductDisplayScreen appMPDS, DBAdapter database)
-    {
+    public ImageAdapter(Context applicationContext, MultipleProductDisplayScreen appMPDS, DBAdapter database) {
         context = applicationContext;
         mpds = appMPDS;
         db = database;
@@ -73,8 +53,7 @@ public class ImageAdapter extends BaseAdapter {
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         View MyView = convertView;
-        if (MyView == null)
-        {
+        if (MyView == null) {
             String categories[] = mpds.getCategory();
             String category = categories[0];
             String calledClass = categories[1];

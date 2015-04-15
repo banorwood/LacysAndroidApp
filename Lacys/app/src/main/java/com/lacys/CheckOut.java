@@ -18,8 +18,6 @@ public class CheckOut {
     Integer zipCode;
     String state;
 
-
-
     public CheckOut(String firstName, String lastName, String addressLine1,
                     String addressLine2, String city, Integer zipCode, String state) {
         this.firstName = firstName;

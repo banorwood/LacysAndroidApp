@@ -1,7 +1,6 @@
 package com.lacys;
 
 
-import android.animation.ObjectAnimator;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
@@ -10,8 +9,6 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarActivity;
-import android.support.v7.app.ActionBarDrawerToggle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -19,21 +16,14 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
 import android.widget.HorizontalScrollView;
 import android.widget.ImageView;
 import android.widget.ListAdapter;
 import android.widget.ListView;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import java.util.Timer;
-import java.util.TimerTask;
-
-import static android.app.PendingIntent.getActivity;
-
-public class MainActivity extends ActionBarActivity implements NavigationDrawerFragment.NavigationDrawerCallbacks  {
+public class MainActivity extends ActionBarActivity implements NavigationDrawerFragment.NavigationDrawerCallbacks {
 
 
     private DBAdapter db;
@@ -65,12 +55,12 @@ public class MainActivity extends ActionBarActivity implements NavigationDrawerF
 
         //Get the current system instance
         system = System.getInstance();
-        system.setUserID(1);
+        //system.setUserID(1);
         //Get the user id
         int userID = system.getUserID();
-        TextView signInButton = (TextView)findViewById(R.id.sign_in_out_button);
+        TextView signInButton = (TextView) findViewById(R.id.sign_in_out_button);
         //Determine if the user is logged in or not.
-        if(userID == 0)
+        if (userID == 0)
             signInButton.setText("Sign In");
         else
             signInButton.setText("Sign Out");
@@ -92,8 +82,7 @@ public class MainActivity extends ActionBarActivity implements NavigationDrawerF
     */
 
 
-    private void setUpAdDisplay()
-    {
+    private void setUpAdDisplay() {
         //set images for the ads on the home screen
         ImageView mainAd1 = (ImageView) findViewById(R.id.main_ad_1);
         ImageView mainAd2 = (ImageView) findViewById(R.id.main_ad_2);
@@ -139,8 +128,7 @@ public class MainActivity extends ActionBarActivity implements NavigationDrawerF
     }
     */
 
-    private void setUpNavDrawer()
-    {
+    private void setUpNavDrawer() {
         mNavigationDrawerFragment = (NavigationDrawerFragment)
                 getSupportFragmentManager().findFragmentById(R.id.navigation_drawer);
         mTitle = getTitle();
@@ -166,8 +154,7 @@ public class MainActivity extends ActionBarActivity implements NavigationDrawerF
         animator.start();
     }*/
 
-    private void setUpCategories()
-    {
+    private void setUpCategories() {
 
         String[] mainProductCategories = {getString(R.string.home_essentials_category),
                 getString(R.string.women_category), getString(R.string.men_category)};
@@ -175,7 +162,7 @@ public class MainActivity extends ActionBarActivity implements NavigationDrawerF
         ListAdapter theAdapter;
         theAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, mainProductCategories);
 
-        ListView theListView = (ListView) findViewById(R.id.main_categories_list_view );
+        ListView theListView = (ListView) findViewById(R.id.main_categories_list_view);
 
         theListView.setAdapter(theAdapter);
 
@@ -185,24 +172,19 @@ public class MainActivity extends ActionBarActivity implements NavigationDrawerF
                                                        @Override
                                                        public void onItemClick(AdapterView<?> adapterView, View view, int position, long id) {
 
-                                                           String mainCategoryPicked = String.valueOf(adapterView.getItemAtPosition(position) );
+                                                           String mainCategoryPicked = String.valueOf(adapterView.getItemAtPosition(position));
 
-                                                           if (mainCategoryPicked.equals(getString(R.string.home_essentials_category)))
-                                                           {
+                                                           if (mainCategoryPicked.equals(getString(R.string.home_essentials_category))) {
                                                                //bug fix. Moved this code from HomeEssentialsScreen to here so 2 HomeEssentialScreen activities
                                                                //are not started and user doesn't have to click back button twice
                                                                Intent sendCategoryResource = new Intent(MainActivity.this, MultipleProductDisplayScreen.class);
                                                                sendCategoryResource.putExtra("categoryClicked", getString(R.string.home_essentials_category));
                                                                startActivity(sendCategoryResource);
 
-                                                           }
-                                                           else if (mainCategoryPicked.equals(getString(R.string.women_category)))
-                                                           {
-                                                               startActivity(new Intent(MainActivity.this , WomenScreen.class));
-                                                           }
-                                                           else if (mainCategoryPicked.equals(getString(R.string.men_category)))
-                                                           {
-                                                               startActivity(new Intent(MainActivity.this , MenScreen.class));
+                                                           } else if (mainCategoryPicked.equals(getString(R.string.women_category))) {
+                                                               startActivity(new Intent(MainActivity.this, WomenScreen.class));
+                                                           } else if (mainCategoryPicked.equals(getString(R.string.men_category))) {
+                                                               startActivity(new Intent(MainActivity.this, MenScreen.class));
                                                            }
 
                                                        }
@@ -214,8 +196,7 @@ public class MainActivity extends ActionBarActivity implements NavigationDrawerF
         // update the main content by replacing fragments
         FragmentManager fragmentManager = getSupportFragmentManager();
 
-        if (position == 1)
-        {
+        if (position == 1) {
             //will uncomment this when I make the home page a fragment within MainActivity
             // so that I can switch out fragments
             /*
@@ -225,19 +206,13 @@ public class MainActivity extends ActionBarActivity implements NavigationDrawerF
 
             */
 
-            startActivity(new Intent(MainActivity.this , ViewOrdersActivity.class));
+            startActivity(new Intent(MainActivity.this, ViewOrdersActivity.class));
 
         }
-        if (position == 2)
-        {
+        if (position == 2) {
             int userID = system.getUserID();
-            if(userID != 0)
-            {
-                if (db.getShoppingCartData(userID) == null)
-                    Toast.makeText(getApplicationContext(), "Your shopping cart is empty.", Toast.LENGTH_SHORT).show();
-                else
-                    startActivity(new Intent(MainActivity.this , ShoppingCartScreen.class));
-            }
+            if (userID != 0)
+                startActivity(new Intent(MainActivity.this, ShoppingCartScreen.class));
             else {
                 Intent i = new Intent(getApplicationContext(), SignInScreen.class);
                 i.putExtra("return", "close");
@@ -342,7 +317,6 @@ public class MainActivity extends ActionBarActivity implements NavigationDrawerF
     }
 
 
-
     //for now only starts sign in activity. later on may also make user sign out.
     public void onSignInOutButtonClick(View view) {
         if (system.getUserID() == 0)
@@ -350,7 +324,7 @@ public class MainActivity extends ActionBarActivity implements NavigationDrawerF
         else {
             system.setUserID(0);
             Toast.makeText(this, "Successfully logged out.", Toast.LENGTH_SHORT).show();
-            TextView signInButton = (TextView)findViewById(R.id.sign_in_out_button);
+            TextView signInButton = (TextView) findViewById(R.id.sign_in_out_button);
             signInButton.setText("Sign In");
         }
     }
@@ -374,7 +348,6 @@ public class MainActivity extends ActionBarActivity implements NavigationDrawerF
         sendCategoryResource.putExtra("categoryClicked", getString(R.string.men_category));
         startActivity(sendCategoryResource);
     }
-
 
 
 }

@@ -14,10 +14,10 @@ import android.widget.Spinner;
  */
 public class ShippingAddressScreen extends ActionBarActivity {
 
-    EditText fNameEditText, lNameEditText, addressLine1EditText, addressLine2EditText, cityEditText,
+    EditText fNameEditText, lNameEditText, addressLine1EditText, addressLine4EditText, cityEditText,
             zipCodeEditText;
     private CheckBox checkBox;
-    private Spinner stateSpinner;
+    private Spinner spinner;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,11 +27,11 @@ public class ShippingAddressScreen extends ActionBarActivity {
         fNameEditText = (EditText) findViewById(R.id.fNameEditText);
         lNameEditText = (EditText) findViewById(R.id.lNameEditText);
         addressLine1EditText = (EditText) findViewById(R.id.addressLine1EditText);
-        addressLine2EditText = (EditText) findViewById(R.id.addressLine2EditText);
+        addressLine4EditText = (EditText) findViewById(R.id.addressLine4EditText);
         cityEditText = (EditText) findViewById(R.id.cityEditText);
         zipCodeEditText = (EditText) findViewById(R.id.zipCodeEditText);
         checkBox = (CheckBox) findViewById(R.id.checkBox);
-        stateSpinner = (Spinner) findViewById(R.id.stateSpinner);
+        spinner = (Spinner) findViewById(R.id.stateSpinner);
 
     }
 
@@ -41,10 +41,9 @@ public class ShippingAddressScreen extends ActionBarActivity {
         String fName = fNameEditText.getText().toString();
         String lName = lNameEditText.getText().toString();
         String addressLine1 = addressLine1EditText.getText().toString();
-        String addressLine2 = addressLine2EditText.getText().toString();
+        String addressLine4 = addressLine4EditText.getText().toString();
         String city = cityEditText.getText().toString();
         String zipCode = zipCodeEditText.getText().toString();
-        String state = stateSpinner.getSelectedItem().toString();
         boolean fail = false;
 
         if (fName.length() == 0) {
@@ -74,15 +73,7 @@ public class ShippingAddressScreen extends ActionBarActivity {
         if (fail)
             return;
 
-        int index = getIndex(stateSpinner, stateSpinner.getSelectedItem().toString());
-
-        //if it didn't fail validation, put the values in the shipping object that
-        //is in the System singleton and that was created by ShoppingCartScreen
-        Shipping shipping = System.getInstance().getShippingForNewOrder();
-        CheckOut addressForShipping = new CheckOut(fName, lName, addressLine1, addressLine2, city, Integer.parseInt(zipCode), state);
-        shipping.setCheckOut(addressForShipping);
-        //will write the shipping and billing objects that are in system to the database when
-        //the user is completely done checking out.
+        int index = getIndex(spinner, spinner.getSelectedItem().toString());
 
         if (checkBox.isChecked()) {
             Intent intentBundle = new Intent(this, BillingAddressScreen.class);
@@ -90,13 +81,18 @@ public class ShippingAddressScreen extends ActionBarActivity {
             bundle.putString("fName", fName);
             bundle.putString("lName", lName);
             bundle.putString("addressLine1", addressLine1);
-            bundle.putString("addressLine2", addressLine2);
+            bundle.putString("addressLine4", addressLine4);
             bundle.putString("city", city);
             bundle.putString("zip", zipCode);
             bundle.putInt("index", index);
             intentBundle.putExtras(bundle);
+
+            //add to database here
+
             startActivity(intentBundle);
         } else
+            //add to database here
+
             //launch screen for entering billing address
             startActivity(new Intent(this, BillingAddressScreen.class));
 
