@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="subjectItems">
+        <item>Select One</item>
+        <item>Remark</item>
+        <item>Question</item>
+        <item>Complaint</item>
+        <item>Other</item>
+    </string-array>
+</resources>

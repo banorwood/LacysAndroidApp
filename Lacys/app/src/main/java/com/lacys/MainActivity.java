@@ -1,7 +1,6 @@
 package com.lacys;
 
 
-import android.animation.ObjectAnimator;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
@@ -10,8 +9,6 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarActivity;
-import android.support.v7.app.ActionBarDrawerToggle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -19,19 +16,12 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
 import android.widget.HorizontalScrollView;
 import android.widget.ImageView;
 import android.widget.ListAdapter;
 import android.widget.ListView;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
-
-import java.util.Timer;
-import java.util.TimerTask;
-
-import static android.app.PendingIntent.getActivity;
 
 public class MainActivity extends ActionBarActivity implements NavigationDrawerFragment.NavigationDrawerCallbacks  {
 
@@ -209,6 +199,7 @@ public class MainActivity extends ActionBarActivity implements NavigationDrawerF
                                                    });
     }
 
+    //Set up Navigation Drawer
     @Override
     public void onNavigationDrawerItemSelected(int position) {
         // update the main content by replacing fragments
@@ -244,6 +235,10 @@ public class MainActivity extends ActionBarActivity implements NavigationDrawerF
                 startActivity(i);
                 Toast.makeText(getApplicationContext(), "Please login in order to view cart.", Toast.LENGTH_SHORT).show();
             }
+        }
+        if (position == 3) {
+            Intent i = new Intent(getApplicationContext(), ContactUs.class);
+            startActivity(i);
         }
     }
 
@@ -294,6 +289,11 @@ public class MainActivity extends ActionBarActivity implements NavigationDrawerF
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
+        if (id == R.id.contact_us) {
+            startActivity(new Intent(MainActivity.this, ContactUs.class));
+            return true;
+
+        }
         if (id == R.id.action_settings) {
             return true;
         }
