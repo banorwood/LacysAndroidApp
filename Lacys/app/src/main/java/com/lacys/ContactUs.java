@@ -10,6 +10,8 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.Html;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.AdapterView;
@@ -30,6 +32,7 @@ public class ContactUs extends Activity implements OnClickListener, OnItemSelect
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.contact_us);
+
 
         nameField = (EditText) findViewById(R.id.editTextName);
         mailField = (EditText) findViewById(R.id.editTextMail);
@@ -92,5 +95,30 @@ public class ContactUs extends Activity implements OnClickListener, OnItemSelect
     public void onNothingSelected(AdapterView<?> arg0) {
         // TODO Auto-generated method stub
 
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.main, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Handle action bar item clicks here. The action bar will
+        // automatically handle clicks on the Home/Up button, so long
+        // as you specify a parent activity in AndroidManifest.xml.
+        switch (item.getItemId()) {
+            case R.id.contact_us:
+                startActivity(new Intent(ContactUs.this, ContactUs.class));
+                return true;
+            case R.id.action_settings:
+                return true;
+            case R.id.home:
+                startActivity(new Intent(ContactUs.this, MainActivity.class));
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
     }
 }

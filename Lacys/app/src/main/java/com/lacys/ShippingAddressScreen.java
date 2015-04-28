@@ -3,6 +3,8 @@ package com.lacys;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.CheckBox;
 import android.widget.EditText;
@@ -112,5 +114,30 @@ public class ShippingAddressScreen extends ActionBarActivity {
             }
         }
         return index;
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.main, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Handle action bar item clicks here. The action bar will
+        // automatically handle clicks on the Home/Up button, so long
+        // as you specify a parent activity in AndroidManifest.xml.
+        switch (item.getItemId()) {
+            case R.id.contact_us:
+                startActivity(new Intent(ShippingAddressScreen.this, ContactUs.class));
+                return true;
+            case R.id.action_settings:
+                return true;
+            case R.id.home:
+                startActivity(new Intent(ShippingAddressScreen.this, MainActivity.class));
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
     }
 }

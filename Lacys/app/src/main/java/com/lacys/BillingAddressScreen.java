@@ -5,6 +5,8 @@ import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.EditText;
@@ -57,9 +59,7 @@ public class BillingAddressScreen extends ActionBarActivity {
             stateSpinner.setSelection(bundle.getInt("index"));
 
             billingSameAsShipping = true; //this status may later be changed by textWatcher
-        }
-        else
-        {
+        } else {
             billingSameAsShipping = false;
         }
 
@@ -69,10 +69,12 @@ public class BillingAddressScreen extends ActionBarActivity {
         //set a TextWatcher on all the textboxes and an OnItemSelectedListener on the state spinner.
         textWatcher = new TextWatcher() {
             @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+            }
 
             @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {}
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+            }
 
             @Override
             public void afterTextChanged(Editable s) {
@@ -149,12 +151,9 @@ public class BillingAddressScreen extends ActionBarActivity {
         //if billing is the same as shipping, or create a new CheckOut
         CheckOut addressForBilling;
 
-        if (this.billingSameAsShipping == false)
-        {
+        if (this.billingSameAsShipping == false) {
             addressForBilling = new CheckOut(fName, lName, addressLine1, addressLine2, city, Integer.parseInt(zipCode), state);
-        }
-        else
-        {
+        } else {
             addressForBilling = System.getInstance().getShippingForNewOrder().getCheckOut();
         }
 
@@ -166,5 +165,30 @@ public class BillingAddressScreen extends ActionBarActivity {
         //the user is completely done checking out.
 
         startActivity(new Intent(this, PaymentScreen.class));
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.main, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Handle action bar item clicks here. The action bar will
+        // automatically handle clicks on the Home/Up button, so long
+        // as you specify a parent activity in AndroidManifest.xml.
+        switch (item.getItemId()) {
+            case R.id.contact_us:
+                startActivity(new Intent(BillingAddressScreen.this, ContactUs.class));
+                return true;
+            case R.id.action_settings:
+                return true;
+            case R.id.home:
+                startActivity(new Intent(BillingAddressScreen.this, MainActivity.class));
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
     }
 }

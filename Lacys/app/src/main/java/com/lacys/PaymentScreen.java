@@ -3,6 +3,8 @@ package com.lacys;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -82,9 +84,7 @@ public class PaymentScreen extends ActionBarActivity {
 
         if (rightNow.before(expCalendar)) {
             billing.setExpDate(expCalendar);
-        }
-        else
-        {
+        } else {
             Toast.makeText(getApplicationContext(), "That card is expired.", Toast.LENGTH_SHORT).show();
             fail = true;
         }
@@ -93,13 +93,36 @@ public class PaymentScreen extends ActionBarActivity {
 
         //need more validation
 
-        if (!fail)
-        {
+        if (!fail) {
             DBAdapter.writeAllCheckOutInfo();
             startActivity(new Intent(this, ViewOrdersActivity.class));
         }
 
     }
 
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.main, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Handle action bar item clicks here. The action bar will
+        // automatically handle clicks on the Home/Up button, so long
+        // as you specify a parent activity in AndroidManifest.xml.
+        switch (item.getItemId()) {
+            case R.id.contact_us:
+                startActivity(new Intent(PaymentScreen.this, ContactUs.class));
+                return true;
+            case R.id.action_settings:
+                return true;
+            case R.id.home:
+                startActivity(new Intent(PaymentScreen.this, MainActivity.class));
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+    }
 
 }

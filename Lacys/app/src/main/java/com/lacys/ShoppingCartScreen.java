@@ -1,28 +1,26 @@
 package com.lacys;
+
 import android.content.Context;
 import android.content.Intent;
-import android.app.Activity;
 import android.database.Cursor;
-import android.graphics.Paint;
 import android.os.Bundle;
-import android.util.Log;
+import android.support.v7.app.ActionBarActivity;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.support.v7.app.ActionBarActivity;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.SimpleCursorAdapter;
 import android.widget.Spinner;
 import android.widget.TextView;
-import android.widget.ImageView;
 import android.widget.Toast;
 
-import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.List;
 
 /**
  * Created by Christina on 3/9/2015.
@@ -33,9 +31,9 @@ public class ShoppingCartScreen extends ActionBarActivity {
     private static TextView total;
     private static double totalPrice = 0;
 
-	private static SimpleCursorAdapter shoppingCartAdapter;
-	
-	//these change as soon as a shipping speed is clicked so that total
+    private static SimpleCursorAdapter shoppingCartAdapter;
+
+    //these change as soon as a shipping speed is clicked so that total
     //can be automatically updated. estArrival and shippingCost are
     //also used to make the shipping object. Static because they are
     //called by method in anonymous inner class OnItemClickListener
@@ -43,8 +41,7 @@ public class ShoppingCartScreen extends ActionBarActivity {
     public static Calendar estArrival;
     public static double shippingCost;
     private static Context cartContext;
-	
-   
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,7 +49,7 @@ public class ShoppingCartScreen extends ActionBarActivity {
 
         setContentView(R.layout.shopping_cart_screen);
 
-		cartContext = this.getApplicationContext();
+        cartContext = this.getApplicationContext();
 
 
         //total is updated and estArrival and shippingCost change when
@@ -64,14 +61,14 @@ public class ShoppingCartScreen extends ActionBarActivity {
                 ShoppingCartScreen.changeShippingSpeed(position);
             }
         });
-		
+
         db = new DBAdapter(this);
         db.init();
 
         system = System.getInstance();
 
         final int userID = system.getUserID();
-        if(userID != 0) {
+        if (userID != 0) {
             //Obtains the items in cart based on the userid that is logged in
             Cursor cs = db.getShoppingCartData(userID);
 
@@ -155,7 +152,7 @@ public class ShoppingCartScreen extends ActionBarActivity {
                         qty.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
                             @Override
                             public void onItemSelected(AdapterView<?> parentView, View selectedItemView, int position, long id) {
-                                if (currentSelection != position){
+                                if (currentSelection != position) {
                                     //Position starts at index 0, so add 1 to get the correct quantity
                                     int quantity = (position + 1);
                                     //Get the individual item's price from database
@@ -168,16 +165,17 @@ public class ShoppingCartScreen extends ActionBarActivity {
                                         int diff = dbQty - quantity;
                                         tp = totalPrice - (diff * itemPrice);
                                     } else {
-                                        int diff = quantity - dbQty ;
+                                        int diff = quantity - dbQty;
                                         tp = totalPrice + (diff * itemPrice);
                                     }
                                     //Update database to set the quantity
-                                    db.updateProductQuantity(orderid,quantity);
+                                    db.updateProductQuantity(orderid, quantity);
                                     totalPrice = tp;
                                     //Update the total text view with the new price
                                     total.setText("$" + totalPrice + "0");
                                 }
                             }
+
                             @Override
                             public void onNothingSelected(AdapterView<?> parentView) {
                                 return;
@@ -204,7 +202,7 @@ public class ShoppingCartScreen extends ActionBarActivity {
                                     if (db.getShoppingCartData(userID) == null)
                                         Toast.makeText(getApplicationContext(), "Your shopping cart is empty.", Toast.LENGTH_SHORT).show();
                                     else
-                                        startActivity(new Intent(getApplicationContext() , ShoppingCartScreen.class));
+                                        startActivity(new Intent(getApplicationContext(), ShoppingCartScreen.class));
                                 }
                             }
                         });
@@ -294,5 +292,30 @@ public class ShoppingCartScreen extends ActionBarActivity {
             total.setText("$" + newShippingCost + "0");
         }
 
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.main, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Handle action bar item clicks here. The action bar will
+        // automatically handle clicks on the Home/Up button, so long
+        // as you specify a parent activity in AndroidManifest.xml.
+        switch (item.getItemId()) {
+            case R.id.contact_us:
+                startActivity(new Intent(ShoppingCartScreen.this, ContactUs.class));
+                return true;
+            case R.id.action_settings:
+                return true;
+            case R.id.home:
+                startActivity(new Intent(ShoppingCartScreen.this, MainActivity.class));
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
     }
 }
