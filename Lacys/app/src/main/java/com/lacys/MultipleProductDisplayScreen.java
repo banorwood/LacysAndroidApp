@@ -1,8 +1,8 @@
 package com.lacys;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -13,7 +13,7 @@ import android.widget.Toast;
 /**
  * Created by Christina on 2/15/2015.
  */
-public class MultipleProductDisplayScreen extends Activity {
+public class MultipleProductDisplayScreen extends ActionBarActivity {
 
     private DBAdapter db;
 
