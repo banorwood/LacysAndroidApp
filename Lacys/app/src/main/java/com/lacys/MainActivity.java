@@ -197,7 +197,7 @@ public class MainActivity extends ActionBarActivity implements NavigationDrawerF
         // update the main content by replacing fragments
         FragmentManager fragmentManager = getSupportFragmentManager();
 
-        if (position == 1) {
+        if (position == 1){
             //will uncomment this when I make the home page a fragment within MainActivity
             // so that I can switch out fragments
             /*
@@ -206,9 +206,20 @@ public class MainActivity extends ActionBarActivity implements NavigationDrawerF
                     .commit();
 
             */
-
-            startActivity(new Intent(MainActivity.this, ViewOrdersActivity.class));
-
+            int userID = system.getUserID();
+            if(userID != 0)
+            {
+                if (db.getOrderData(userID) == null)
+                    Toast.makeText(getApplicationContext(), "You have no orders.", Toast.LENGTH_SHORT).show();
+                else
+                    startActivity(new Intent(MainActivity.this , ViewOrdersActivity.class));
+            }
+            else {
+                Intent i = new Intent(getApplicationContext(), SignInScreen.class);
+                i.putExtra("return", "close");
+                startActivity(i);
+                Toast.makeText(getApplicationContext(), "Please login in order to view your orders.", Toast.LENGTH_SHORT).show();
+            }
         }
         if (position == 2) {
             int userID = system.getUserID();

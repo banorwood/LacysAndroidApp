@@ -95,6 +95,7 @@ public class PaymentScreen extends ActionBarActivity {
 
         if (!fail) {
             DBAdapter.writeAllCheckOutInfo();
+			DBAdapter.updateAccountOrderId(System.getInstance().getUserID());
             startActivity(new Intent(this, ViewOrdersActivity.class));
         }
 

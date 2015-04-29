@@ -4,7 +4,7 @@ package com.lacys;
  * Created by Derick on 4/1/2015.
  */
 public class System {
-    private static int userID;
+    private static int userID, orderID;
     private static System system;
 
     //As a user goes through the checkout process, these objects are created
@@ -24,6 +24,13 @@ public class System {
 
     public static void setUserID(int uid) {
         userID = uid;
+    }
+    public static int getOrderID() {
+        return orderID;
+    }
+
+    public static void setOrderID(int oid) {
+        orderID = oid;
     }
 
     public static System getInstance() {

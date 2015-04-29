@@ -102,9 +102,9 @@ public class CreateAccount extends ActionBarActivity{
             if (db.createAccount(user, pass, fst, lst) != -1) {
                 Cursor results = db.login(user);
                 if ((results != null) && (results.getCount() > 0)) {
-                    int accIDResult = results.getInt(0);
-                    String emailResult = results.getString(3);
-                    String pwdResult = results.getString(4);
+                    int accIDResult = results.getInt(results.getColumnIndex(LacyConstants.TABLE_ACCOUNT_ID));
+                    String emailResult = results.getString(results.getColumnIndex(LacyConstants.TABLE_ACCOUNT_EMAIL));
+                    String pwdResult = results.getString(results.getColumnIndex(LacyConstants.TABLE_ACCOUNT_PASSWORD));
                     if (pwdResult.equals(pass)) {
                         Toast.makeText(getApplicationContext(), "Your account " + emailResult + " has successfully been created! Your user id is " + accIDResult, Toast.LENGTH_SHORT).show();
                         //startActivity(new Intent(this, MainActivity.class));

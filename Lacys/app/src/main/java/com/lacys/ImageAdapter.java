@@ -109,15 +109,29 @@ public class ImageAdapter extends BaseAdapter {
                     TextView name = (TextView) MyView.findViewById(R.id.grid_item_text);
                     name.setText(productName);
 
-                    TextView price = (TextView) MyView.findViewById(R.id.grid_item_text_2);
-                    price.setText("Was: $" + productPrice + "0");
+                    //Display a discount price only if there is a discount
+                    if (productDiscount > 0 ) {
+                        TextView price = (TextView) MyView.findViewById(R.id.grid_item_text_2);
+                        price.setText("Was: $" + productPrice + "0");
 
-                    TextView priceText = (TextView) MyView.findViewById(R.id.grid_item_text_4);
-                    priceText.setText("You save " + (productDiscount * 100) + "%!");
+                        TextView priceText = (TextView) MyView.findViewById(R.id.grid_item_text_4);
 
-                    productDiscount = productPrice - (productPrice * productDiscount);
-                    TextView discount = (TextView) MyView.findViewById(R.id.grid_item_text_3);
-                    discount.setText("NOW: $" + productDiscount + "0");
+                        String formatted = String.format("%.0f", (productDiscount * 100));
+                        priceText.setText("You save " + formatted + "%!");
+
+                        productDiscount = productPrice - (productPrice * productDiscount);
+                        TextView discount = (TextView) MyView.findViewById(R.id.grid_item_text_3);
+                        discount.setText("NOW: $" + productDiscount + "0");
+                    }
+                    else{
+                        TextView price = (TextView) MyView.findViewById(R.id.grid_item_text_2);
+                        price.setText("Price: $" + productPrice + "0");
+
+                        TextView priceText = (TextView) MyView.findViewById(R.id.grid_item_text_4);
+                        TextView discount = (TextView) MyView.findViewById(R.id.grid_item_text_3);
+                        priceText.setVisibility(View.GONE);
+                        discount.setVisibility(View.GONE);
+                    }
 
                     // Add The Image!!!
                     ImageView image = (ImageView) MyView.findViewById(R.id.grid_item_image);

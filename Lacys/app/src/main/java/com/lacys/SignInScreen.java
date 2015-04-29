@@ -67,14 +67,18 @@ public class SignInScreen extends ActionBarActivity {
 
             Cursor results = db.login(user);
             if ((results != null) && (results.getCount() > 0)) {
-                int accIDResult = results.getInt(0);
-                String fNameResult = results.getString(1);
-                String emailResult = results.getString(3);
-                String pwdResult = results.getString(4);
+                int accIDResult = results.getInt(results.getColumnIndex(LacyConstants.TABLE_ACCOUNT_ID));
+                String fNameResult = results.getString(results.getColumnIndex(LacyConstants.TABLE_ACCOUNT_FIRSTNAME));
+                String emailResult = results.getString(results.getColumnIndex(LacyConstants.TABLE_ACCOUNT_EMAIL));
+                String pwdResult = results.getString(results.getColumnIndex(LacyConstants.TABLE_ACCOUNT_PASSWORD));
                 if (pwdResult.equals(pass)) {
                     Toast.makeText(getApplicationContext(), "Welcome back " + fNameResult + "! Your account email is " + emailResult, Toast.LENGTH_SHORT).show();
                     system.setUserID(accIDResult);
 
+                    //Calls database to get the current order id
+                    int orderID = db.getOrderID(accIDResult);
+                    //Sets the order id in the system class.
+                    system.setOrderID(orderID);
                     /*Since the add to cart will bring the user to login page if they aren't logged in, this will "close" the login page once
                        the user is logged in and goes back to the previous page they were on instead of switching to main activity like normal.
                     */
@@ -109,7 +113,7 @@ public class SignInScreen extends ActionBarActivity {
         startActivity(new Intent(this, CreateAccount.class));
     }
 
-    @Override
+	@Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.main, menu);
         return true;
@@ -133,5 +137,6 @@ public class SignInScreen extends ActionBarActivity {
                 return super.onOptionsItemSelected(item);
         }
     }
+	
 }
 

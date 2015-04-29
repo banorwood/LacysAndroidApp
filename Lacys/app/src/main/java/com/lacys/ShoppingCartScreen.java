@@ -1,26 +1,29 @@
 package com.lacys;
-
 import android.content.Context;
 import android.content.Intent;
+import android.app.Activity;
 import android.database.Cursor;
+import android.graphics.Paint;
 import android.os.Bundle;
-import android.support.v7.app.ActionBarActivity;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.support.v7.app.ActionBarActivity;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.ImageView;
 import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.SimpleCursorAdapter;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.ImageView;
 import android.widget.Toast;
-
+import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.List;
 
 /**
  * Created by Christina on 3/9/2015.
@@ -29,19 +32,20 @@ public class ShoppingCartScreen extends ActionBarActivity {
     private static DBAdapter db;
     private static System system;
     private static TextView total;
-    private static double totalPrice = 0;
+    private static double totalPrice = 0.0;
 
-    private static SimpleCursorAdapter shoppingCartAdapter;
-
-    //these change as soon as a shipping speed is clicked so that total
+	private static SimpleCursorAdapter shoppingCartAdapter;
+	
+	//these change as soon as a shipping speed is clicked so that total
     //can be automatically updated. estArrival and shippingCost are
     //also used to make the shipping object. Static because they are
     //called by method in anonymous inner class OnItemClickListener
     private static ListView shippingListView;
     public static Calendar estArrival;
-    public static double shippingCost;
+    public static double shippingCost = 0.0;
     private static Context cartContext;
-
+	
+   
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,7 +53,7 @@ public class ShoppingCartScreen extends ActionBarActivity {
 
         setContentView(R.layout.shopping_cart_screen);
 
-        cartContext = this.getApplicationContext();
+		cartContext = this.getApplicationContext();
 
 
         //total is updated and estArrival and shippingCost change when
@@ -61,14 +65,15 @@ public class ShoppingCartScreen extends ActionBarActivity {
                 ShoppingCartScreen.changeShippingSpeed(position);
             }
         });
-
+		
         db = new DBAdapter(this);
         db.init();
 
         system = System.getInstance();
 
         final int userID = system.getUserID();
-        if (userID != 0) {
+        final int orderID = system.getOrderID();
+        if(userID != 0) {
             //Obtains the items in cart based on the userid that is logged in
             Cursor cs = db.getShoppingCartData(userID);
 
@@ -91,15 +96,16 @@ public class ShoppingCartScreen extends ActionBarActivity {
                             R.id.shopping_cart_remove_button,
                     });
 
-            totalPrice = db.getShoppingCartTotal(userID);
-            total = (TextView) findViewById(R.id.shopping_cart_total_price);
 
+
+            totalPrice = db.getShoppingCartTotal(userID,orderID,0);
+            total = (TextView) findViewById(R.id.shopping_cart_total_price);
 
             //Update the listview contents with database values
             shoppingCartAdapter.setViewBinder(new SimpleCursorAdapter.ViewBinder() {
                 @Override
                 public boolean setViewValue(View view, Cursor cursor, int column) {
-                    final int orderid = cursor.getInt(cursor.getColumnIndex(LacyConstants.TABLE_ORDERS_ID));
+                    final int porderid = cursor.getInt(cursor.getColumnIndex(LacyConstants.TABLE_PRODUCTORDER_ID));
                     //If the column index matches the column for product name
                     if (column == cursor.getColumnIndex(LacyConstants.TABLE_PRODUCT_NAME)) {
                         TextView tv = (TextView) view;
@@ -152,13 +158,15 @@ public class ShoppingCartScreen extends ActionBarActivity {
                         qty.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
                             @Override
                             public void onItemSelected(AdapterView<?> parentView, View selectedItemView, int position, long id) {
-                                if (currentSelection != position) {
+                                if (currentSelection != position){
+                                    double totalSecond = db.getShoppingCartTotal(userID,orderID,1);
                                     //Position starts at index 0, so add 1 to get the correct quantity
+                                    totalPrice = db.getShoppingCartTotal(userID,orderID,0);
                                     int quantity = (position + 1);
                                     //Get the individual item's price from database
-                                    double itemPrice = db.getPrice(orderid);
+                                    double itemPrice = db.getPrice(porderid);
                                     //Get the individual item's quantity from database
-                                    int dbQty = db.getQuantity(orderid);
+                                    int dbQty = db.getQuantity(porderid);
                                     double tp = 0;
                                     //Determine whether the quantity increased or decreased to get the new price
                                     if (dbQty > quantity) {
@@ -169,13 +177,17 @@ public class ShoppingCartScreen extends ActionBarActivity {
                                         tp = totalPrice + (diff * itemPrice);
                                     }
                                     //Update database to set the quantity
-                                    db.updateProductQuantity(orderid, quantity);
-                                    totalPrice = tp;
+                                    db.updateProductQuantity(porderid,quantity);
+                                    totalPrice = tp + shippingCost;
+                                    String formatted = String.format("%.2f", totalPrice);
+                                    //Update the order_total column in database
+                                    if ((totalSecond + tp) != totalPrice) {
+                                        db.updateOrderTotal(orderID, totalPrice);
+                                    }
                                     //Update the total text view with the new price
-                                    total.setText("$" + totalPrice + "0");
+                                    total.setText("$" + formatted);
                                 }
                             }
-
                             @Override
                             public void onNothingSelected(AdapterView<?> parentView) {
                                 return;
@@ -193,7 +205,7 @@ public class ShoppingCartScreen extends ActionBarActivity {
                                 int userID = system.getUserID();
                                 if (userID != 0) {
                                     //Remove shopping cart item, sets the "alreadycheckedout" true, thus removing it from the adapter
-                                    db.removeShoppingCartItem(orderid);
+                                    db.removeShoppingCartItem(porderid);
                                     Toast.makeText(getApplicationContext(), "Item removed from your shopping cart", Toast.LENGTH_SHORT).show();
                                     //The update adapter view wasn't working so this is what I did it instead, will close this activity then open it again
                                     //I think this works better anyways because if the cart is empty it wont show the screen with the empty adapter.
@@ -202,7 +214,7 @@ public class ShoppingCartScreen extends ActionBarActivity {
                                     if (db.getShoppingCartData(userID) == null)
                                         Toast.makeText(getApplicationContext(), "Your shopping cart is empty.", Toast.LENGTH_SHORT).show();
                                     else
-                                        startActivity(new Intent(getApplicationContext(), ShoppingCartScreen.class));
+                                        startActivity(new Intent(getApplicationContext() , ShoppingCartScreen.class));
                                 }
                             }
                         });
@@ -218,18 +230,10 @@ public class ShoppingCartScreen extends ActionBarActivity {
             // Connect the ListView with the Adapter that acts as a bridge between it and the array
             shoppingCartItems.setAdapter(shoppingCartAdapter);
 
-
-            String[] shippingSpeeds = {"7-9 business days - FREE for orders over $50",
-                    "3-5 business days - $7.00", "2 business days - $16.00"};
-
+            String[] shippingSpeeds = {"7-9 business days - FREE", "3-5 business days - $7.00", "2 business days - $16.00"};
             ListAdapter shippingAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, shippingSpeeds);
-
             ListView shippingListView = (ListView) findViewById(R.id.shipping_speed_list);
-
             shippingListView.setAdapter(shippingAdapter);
-
-
-            total.setText("$" + totalPrice + "0");
         }
         //
     }
@@ -263,38 +267,42 @@ public class ShoppingCartScreen extends ActionBarActivity {
     }
 
     public static void changeShippingSpeed(int position) {
-        int daysToArrive = 0;
+        int daysToArrive;
         ShoppingCartScreen.estArrival = Calendar.getInstance();
+        int orderID = system.getOrderID();
         int userID = system.getUserID();
-        double newShippingCost = db.getShoppingCartTotal(userID);
-
+        double newShippingCost = db.getShoppingCartTotal(userID,orderID,0);
+        double newShippingCost2 = db.getShoppingCartTotal(userID,orderID,1);
         if (position == 0) {
             daysToArrive = 8;
-
             ShoppingCartScreen.shippingCost = 0.0;
             ShoppingCartScreen.estArrival.add(Calendar.DAY_OF_MONTH, daysToArrive);
             ShoppingCartScreen.displayEstArrivalInToast(estArrival);
             newShippingCost = ShoppingCartScreen.shippingCost + newShippingCost;
-            total.setText("$" + newShippingCost + "0");
+            String formatted = String.format("%.2f", newShippingCost);
+            total.setText("$" + formatted);
         } else if (position == 1) {
             daysToArrive = 4;
             ShoppingCartScreen.shippingCost = 7.0;
             ShoppingCartScreen.estArrival.add(Calendar.DAY_OF_MONTH, daysToArrive);
             ShoppingCartScreen.displayEstArrivalInToast(estArrival);
             newShippingCost = ShoppingCartScreen.shippingCost + newShippingCost;
-            total.setText("$" + newShippingCost + "0");
-        } else if (position == 2) {
+            String formatted = String.format("%.2f", newShippingCost);
+            total.setText("$" + formatted);
+          } else if (position == 2) {
             daysToArrive = 2;
             ShoppingCartScreen.shippingCost = 16.0;
             ShoppingCartScreen.estArrival.add(Calendar.DAY_OF_MONTH, daysToArrive);
             ShoppingCartScreen.displayEstArrivalInToast(estArrival);
             newShippingCost = ShoppingCartScreen.shippingCost + newShippingCost;
-            total.setText("$" + newShippingCost + "0");
+            String formatted = String.format("%.2f", newShippingCost);
+            total.setText("$" + formatted);
         }
+        if ((newShippingCost2 - ShoppingCartScreen.shippingCost) != newShippingCost)
+            db.updateOrderTotal(orderID, newShippingCost);
 
     }
-
-    @Override
+	@Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.main, menu);
         return true;
@@ -317,5 +325,12 @@ public class ShoppingCartScreen extends ActionBarActivity {
             default:
                 return super.onOptionsItemSelected(item);
         }
+    }
+	
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        //Close database
+        db.close();
     }
 }

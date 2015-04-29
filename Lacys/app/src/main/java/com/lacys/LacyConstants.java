@@ -5,11 +5,10 @@ public class LacyConstants {
     // Database Name
     public static final String DATABASE_NAME = "lacys";
     //version number to upgrade database version
-    public static final int DATABASE_VERSION = 7;
+    public static final int DATABASE_VERSION = 12;
 
     //All the tables in database
     public static final String TABLE_ACCOUNT = "account";
-    public static final String TABLE_ACCOUNTCHECKOUT = "accountcheckout";
     public static final String TABLE_BILLING = "billing";
     public static final String TABLE_CHECKOUT = "checkout";
     public static final String TABLE_CLOTHINGORDER = "clothingorder";
@@ -28,11 +27,8 @@ public class LacyConstants {
     public static final String TABLE_ACCOUNT_LASTNAME = TABLE_ACCOUNT + "_lastName";
     public static final String TABLE_ACCOUNT_BILLING_ID = TABLE_ACCOUNT + "_billingID";
     public static final String TABLE_ACCOUNT_SHIPPING_ID = TABLE_ACCOUNT + "_shippingID";
+    public static final String TABLE_ACCOUNT_CURRENT_ORDER_ID = TABLE_ORDERS + "_currentID";
 
-    // Account Checkout table Columns
-    public static final String TABLE_ACCOUNTCHECKOUT_ACCOUNT_ID = TABLE_ACCOUNT + "_id";
-    public static final String TABLE_ACCOUNTCHECKOUT_CHECKOUT_ID = TABLE_CHECKOUT + "_id";
-    public static final String TABLE_ACCOUNTCHECKOUT_TYPE = "type";
 
     // Billing table Columns
     public static final String TABLE_BILLING_ID = TABLE_BILLING + "_id";
@@ -79,6 +75,7 @@ public class LacyConstants {
     public static final String TABLE_PRODUCT_CATEGORY = TABLE_PRODUCT + "_category";
 
     // Product order table Columns
+    public static final String TABLE_PRODUCTORDER_ID = TABLE_PRODUCTORDER + "_id";
     public static final String TABLE_PRODUCTORDER_ORDER_ID = TABLE_ORDERS_ID;
     public static final String TABLE_PRODUCTORDER_PRODUCT_ID = TABLE_PRODUCT_ID;
     public static final String TABLE_PRODUCTORDER_QUANTITY = "quantity";
@@ -88,14 +85,13 @@ public class LacyConstants {
 
     // Review table Columns
     public static final String TABLE_REVIEW_ID = TABLE_REVIEW + "_id";
-    public static final String TABLE_REVIEW_EMAIL = TABLE_REVIEW + "_email";
+    public static final String TABLE_REVIEW_NAME = TABLE_REVIEW + "_name";
     public static final String TABLE_REVIEW_RATING = TABLE_REVIEW + "_rating";
     public static final String TABLE_REVIEW_MESSAGE = TABLE_REVIEW + "_message";
     public static final String TABLE_REVIEW_PRODUCT_ID = TABLE_REVIEW + "_productID";
 
     // Shipping table Columns
     public static final String TABLE_SHIPPING_ID = TABLE_SHIPPING + "_id";
-    public static final String TABLE_SHIPPING_DATE = TABLE_SHIPPING + "_date";
     public static final String TABLE_SHIPPING_ARRIVALDATE = TABLE_SHIPPING + "_arrivalDate";
     public static final String TABLE_SHIPPING_COST = TABLE_SHIPPING + "_cost";
 

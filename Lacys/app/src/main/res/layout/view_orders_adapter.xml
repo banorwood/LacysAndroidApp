@@ -59,12 +59,14 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:id="@+id/order_placed_date"
                 android:text="3/6/2015"
                 />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:id="@+id/order_total"
                 android:text="$21.86"
                 />
 
@@ -78,6 +80,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:id="@+id/order_arrival_date"
                 android:text="3/10/2015"
                 />
 
@@ -104,8 +107,8 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:id="@+id/order_products_purchased"
             android:text="Wrap Front Jersey (1)\nV neck cami (2)"
-            android:paddingTop="@dimen/orders_component_top_pad"
             />
         
         <TextView
@@ -119,6 +122,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:id="@+id/order_shipping_address"
             android:text="123 Fake Street\nDuluth, GA 30096"
             />
 
@@ -133,6 +137,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:id="@+id/order_billing_address"
             android:text="123 OtherFake Street\nDuluth, GA 30096"
             />
 
@@ -148,6 +153,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:id="@+id/order_payment_card"
             android:text="Visa ending in 3426"
             android:paddingBottom="@dimen/list_item_padding"
             />

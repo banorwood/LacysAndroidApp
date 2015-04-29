@@ -134,6 +134,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Average rating"
+                    android:id="@+id/avgRateText"
                     android:paddingTop="10dp"
                     android:paddingLeft="15dp"
                     android:paddingBottom="15dp" />
@@ -145,8 +146,10 @@
                 android:layout_gravity="center"
                 android:paddingLeft="15dp"
                 android:paddingRight="15dp"
+                android:id="@+id/rating_button"
                 android:background="@drawable/custom_button"
-                android:text="Read all 5 reviews" />
+                android:onClick="LaunchProductReview"
+                android:text="Read all reviews" />
 
         </LinearLayout>
 

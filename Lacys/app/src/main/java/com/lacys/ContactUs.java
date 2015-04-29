@@ -8,6 +8,7 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.database.Cursor;
 import android.os.Bundle;
 import android.text.Html;
 import android.view.Menu;
@@ -27,6 +28,9 @@ public class ContactUs extends Activity implements OnClickListener, OnItemSelect
      */
     EditText nameField, mailField, phoneField, subjectField;
     Spinner subject;
+	
+	private static DBAdapter db;
+    private static System system;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -41,6 +45,24 @@ public class ContactUs extends Activity implements OnClickListener, OnItemSelect
         subject = (Spinner) findViewById(R.id.spinner);
         subject.setOnItemSelectedListener(this);
 
+		db = new DBAdapter(this);
+        db.init();
+
+        system = System.getInstance();
+
+        int userID = system.getUserID();
+        if(userID != 0) {
+            //User logged in, pre-populate the form with some data
+            Cursor c = db.getAccDetails(userID);
+
+            String fname = c.getString(c.getColumnIndex(LacyConstants.TABLE_ACCOUNT_FIRSTNAME));
+            String lname = c.getString(c.getColumnIndex(LacyConstants.TABLE_ACCOUNT_LASTNAME));
+            String email = c.getString(c.getColumnIndex(LacyConstants.TABLE_ACCOUNT_EMAIL));
+
+            nameField.setText(fname + " " + lname);
+            mailField.setText(email);
+            phoneField.requestFocus();
+        }
 
         final Button buttonSend = (Button) findViewById(R.id.buttonSend);
         buttonSend.setOnClickListener(this);
@@ -95,6 +117,13 @@ public class ContactUs extends Activity implements OnClickListener, OnItemSelect
     public void onNothingSelected(AdapterView<?> arg0) {
         // TODO Auto-generated method stub
 
+    }
+	
+	@Override
+    protected void onDestroy() {
+        super.onDestroy();
+        //Close database
+        db.close();
     }
 
     @Override

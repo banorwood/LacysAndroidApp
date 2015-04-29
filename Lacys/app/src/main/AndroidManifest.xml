@@ -82,6 +82,11 @@
             android:label="WriteProductReview"
             android:theme="@style/AppTheme" />
 
+		<activity 
+			android:name=".ProductReview"
+            android:label="Product Review"
+            android:theme="@style/AppTheme"/>
+			
         <activity
             android:name=".ContactUs"
             android:label="Contact Us"
